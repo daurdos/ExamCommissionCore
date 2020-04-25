@@ -49,6 +49,22 @@ namespace Phd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserActivitiy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(nullable: true),
+                    TimeStamp = table.Column<DateTime>(nullable: false),
+                    Activity = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserActivitiy", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -158,18 +174,11 @@ namespace Phd.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     MiddleName = table.Column<string>(nullable: true),
                     UName = table.Column<string>(nullable: true),
-                    BMajorId = table.Column<int>(nullable: false),
-                    AcademicDepartmentId = table.Column<int>(nullable: true)
+                    BMajorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AcademicDepartment_AcademicDepartmentId",
-                        column: x => x.AcademicDepartmentId,
-                        principalTable: "AcademicDepartment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_BMajor_BMajorId",
                         column: x => x.BMajorId,
@@ -185,6 +194,7 @@ namespace Phd.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
                     BMajorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -413,11 +423,6 @@ namespace Phd.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_AcademicDepartmentId",
-                table: "AspNetUsers",
-                column: "AcademicDepartmentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_BMajorId",
                 table: "AspNetUsers",
                 column: "BMajorId");
@@ -500,6 +505,9 @@ namespace Phd.Migrations
 
             migrationBuilder.DropTable(
                 name: "BRStudentGrade");
+
+            migrationBuilder.DropTable(
+                name: "UserActivitiy");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

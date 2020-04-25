@@ -159,5 +159,74 @@ namespace Phd.Controllers
         }
 
 
+
+        public async Task<IActionResult> CreateStudentGroupRusAsync(int id)
+        {
+            int counter = 0;
+            var bMajorsList = await Context.BMajor.ToListAsync();
+            var bMajor =  bMajorsList.Where(x => x.Id == id).FirstOrDefault();
+            ViewBag.Id = id;
+            ViewBag.Name = (bMajor.Cypher+(counter+1).ToString()).ToString();
+            ViewBag.Type = "Rus";
+
+            //BRStudentGroup bRStudentGroup = new BRStudentGroup()
+            //{
+                
+            //    Name = bMajor.Cypher + (counter + 1).ToString(),
+            //    Type = "Rus",
+            //    BMajorId = id
+
+            //};
+
+
+            return View();
+        }
+
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateStudentGroupRusAsync([Bind("Name,Type,BMajorId")] BRStudentGroup bRStudentGroup)
+        {
+            //string UserId = UserManager.GetUserId(HttpContext.User);
+            string UserNamee = UserManager.GetUserName(HttpContext.User);
+            var phdContext = Context.BRStudentGroup.Include(b => b.BMajor);
+            if (ModelState.IsValid)
+            {
+                // переделываю метод создания 
+                Context.Add(bRStudentGroup);
+                await Context.SaveChangesAsync();
+
+                ////// DAUREN: ADDING USER LOGS
+                UserActivity userActivity = new UserActivity()
+                {
+                    UserName = UserNamee,
+                    TimeStamp = DateTime.Now,
+                    Activity = $"Students group {bRStudentGroup.Name}, created by {UserNamee} at {DateTime.Now}"
+                };
+                Context.Add(userActivity);
+                await Context.SaveChangesAsync();
+                ///***
+                return RedirectToAction(nameof(Index));
+            }
+          //  ViewData["BMajorId"] = new SelectList(Context.BMajor, "Id", "Id", bRStudentGroup.BMajorId);
+            return View(bRStudentGroup);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

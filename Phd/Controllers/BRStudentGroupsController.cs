@@ -60,10 +60,26 @@ namespace Phd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,BMajorId")] BRStudentGroup bRStudentGroup)
         {
+            string UserId = UserManager.GetUserId(HttpContext.User);
+            string UserNamee = UserManager.GetUserName(HttpContext.User);
+            var phdContext = Context.BRStudentGroup.Include(b => b.BMajor);
             if (ModelState.IsValid)
             {
+                // переделываю метод создания 
                 Context.Add(bRStudentGroup);
                 await Context.SaveChangesAsync();
+
+                ////// DAUREN: ADDING USER LOGS
+                UserActivity userActivity = new UserActivity()
+                {
+                        UserName = UserNamee,
+                        TimeStamp = DateTime.Now,
+                        Activity = $"Students group {bRStudentGroup.Id}, created by {UserNamee} at {DateTime.Now}"
+                };
+
+                Context.Add(userActivity);
+                await Context.SaveChangesAsync();
+                ///***
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BMajorId"] = new SelectList(Context.BMajor, "Id", "Id", bRStudentGroup.BMajorId);
@@ -184,6 +200,10 @@ namespace Phd.Controllers
             {
                 Context.Add(bRStudent);
                 await Context.SaveChangesAsync();
+
+
+
+
                 return RedirectToAction(nameof(Success));
             }
             return View(bRStudent);
@@ -320,28 +340,13 @@ namespace Phd.Controllers
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
             }
 
-
-
-
-            ///
-
-
-
-
-
-
-
-
-
-
-
             StudentGradeViewModel model = new StudentGradeViewModel
             {
                 StudentName = student.Lname,
                 AverageGrade = student.BRStudentGrade.Average(x => x.Value),
                 Users = users,
                 Grades = grades,
-                UserWithRoles = userWithRolesList
+                UserWithRoles = userWithRolesList,
             };
 
             return View(model);
@@ -368,6 +373,9 @@ namespace Phd.Controllers
 
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
             }
+
+
+
         }
 
 

@@ -21,6 +21,7 @@ namespace Phd.Models
         public DbSet<Phd.Models.BRStudentGrade> BRStudentGrade { get; set; }
         public DbSet<Phd.Models.BRStudentDoc> BRStudentDoc { get; set; }
         public DbSet<Phd.Models.StudentDocType> StudentDocType { get; set; }
+        public DbSet<Phd.Models.UserActivity> UserActivitiy { get; set; }
 
         /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

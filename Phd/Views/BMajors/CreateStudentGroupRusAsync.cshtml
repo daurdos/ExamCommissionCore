@@ -1,0 +1,29 @@
+﻿@model Phd.Models.BRStudentGroup
+
+@{
+    ViewData["Title"] = "Создать поток студентов на русс.яз.";
+}
+
+<h2>Создать</h2>
+
+<h4>Вы уверены что хотите создать поток студентов на русс. яз.?</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateStudentGroupRusAsync">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@ViewBag.Id" asp-for="BMajorId" />
+            <input type="hidden" value="@ViewBag.Name" asp-for="Name" />
+            <input type="hidden" value="@ViewBag.Type" asp-for="Type" />
+
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-sm btn-primary" asp-action="Index">Домой</a>
+</div>
+

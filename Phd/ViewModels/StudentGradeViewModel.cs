@@ -15,5 +15,7 @@ namespace Phd.ViewModels
         public List<BRStudentGrade> Grades { get; set; }
         public List<UserWithRoles> UserWithRoles { get; set; }
 
+        
+
     }
 }

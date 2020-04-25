@@ -35,7 +35,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Домой</a></li>
-                        @if (User.IsInRole("Модератор"))
+                        @if (User.IsInRole(" User"))
                         {
                             <li><a asp-area="" asp-controller="Roles" asp-action="Index">Управление доступом</a></li>
                             <li><a asp-area="" asp-controller="BMajors" asp-action="Index">Специальности</a></li>
@@ -49,12 +49,12 @@
                             <li><a asp-area="" asp-controller="AcademicDepartments" asp-action="Index">Кафедры</a></li>
                         }
 
-                        else if (User.IsInRole("Техсекретарь"))
+                        else if (User.IsInRole("User"))
                         {
-                            <li><a asp-area="" asp-controller="BRExamCommissions" asp-action="Index">Комиссии</a></li>
+                            <li><a asp-area="" asp-controller="BRStudentGroups" asp-action="Index">Группы</a></li>
                         }
 
-                        else if (User.IsInRole("Преподаватель"))
+                        else if (User.IsInRole("User"))
                         {
                             <li><a asp-area="" asp-controller="BRExamCommissions" asp-action="Index">Комиссии</a></li>
                         }

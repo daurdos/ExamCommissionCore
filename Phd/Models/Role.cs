@@ -8,5 +8,6 @@ namespace Phd.Models
 {
     public class Role : IdentityRole
     {
+        public string Category { get; set; }
     }
 }

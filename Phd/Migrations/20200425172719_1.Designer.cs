@@ -10,7 +10,7 @@ using Phd.Models;
 namespace Phd.Migrations
 {
     [DbContext(typeof(PhdContext))]
-    [Migration("20200423144038_1")]
+    [Migration("20200425172719_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -309,6 +309,8 @@ namespace Phd.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Type");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BMajorId");
@@ -346,8 +348,6 @@ namespace Phd.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AcademicDepartmentId");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -394,8 +394,6 @@ namespace Phd.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AcademicDepartmentId");
-
                     b.HasIndex("BMajorId");
 
                     b.HasIndex("NormalizedEmail")
@@ -407,6 +405,25 @@ namespace Phd.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Phd.Models.UserActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activity");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserActivitiy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -521,10 +538,6 @@ namespace Phd.Migrations
 
             modelBuilder.Entity("Phd.Models.User", b =>
                 {
-                    b.HasOne("Phd.Models.AcademicDepartment")
-                        .WithMany("User")
-                        .HasForeignKey("AcademicDepartmentId");
-
                     b.HasOne("Phd.Models.BMajor", "BMajor")
                         .WithMany()
                         .HasForeignKey("BMajorId")

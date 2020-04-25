@@ -307,6 +307,8 @@ namespace Phd.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Type");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BMajorId");
@@ -401,6 +403,25 @@ namespace Phd.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Phd.Models.UserActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activity");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserActivitiy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

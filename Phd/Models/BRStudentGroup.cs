@@ -12,6 +12,7 @@ namespace Phd.Models
 
         [Display(Name = "Поток по защите ГАК")]
         public string Name { get; set; }
+        public string Type { get; set; }
         public ICollection<BRStudent> BRStudent { get; set; }
 
         [Display(Name = "Комиссия")]
