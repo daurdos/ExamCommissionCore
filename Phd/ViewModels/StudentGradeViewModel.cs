@@ -11,6 +11,7 @@ namespace Phd.ViewModels
         public int StudentId { get; set; }
         public string StudentName { get; set; }
         public double AverageGrade { get; set; }
+        public string MajorCypher { get; set; }
         public List<User> Users { get; set; }
         public List<BRStudentGrade> Grades { get; set; }
         public List<UserWithRoles> UserWithRoles { get; set; }

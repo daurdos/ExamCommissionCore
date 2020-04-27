@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Phd.Models.BRStudentGroup>
+
+@{
+    ViewData["Title"] = "Просмотр потоков на рус яз";
+}
+
+<h2>Просмотр потоков рус яз</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+
+                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentRusAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetStudentsAsync" asp-route-studentId="@item.Id">Результаты</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
