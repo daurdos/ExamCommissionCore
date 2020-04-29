@@ -342,7 +342,7 @@ namespace Phd.Controllers
 
             StudentGradeViewModel model = new StudentGradeViewModel
             {
-                StudentName = student.Lname,
+                StudentLName = student.Lname,
                 AverageGrade = student.BRStudentGrade.Average(x => x.Value),
                 Users = users,
                 Grades = grades,

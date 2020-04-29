@@ -10,7 +10,7 @@ using Phd.Models;
 namespace Phd.Migrations
 {
     [DbContext(typeof(PhdContext))]
-    [Migration("20200425172719_1")]
+    [Migration("20200428164511_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,7 +200,13 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AbsentMemberFullName");
+
+                    b.Property<string>("AnswerCharacteristic");
+
                     b.Property<int>("BRStudentGroupId");
+
+                    b.Property<string>("ConsultantAcademicDegree");
 
                     b.Property<string>("ConsultantFname");
 
@@ -212,23 +218,27 @@ namespace Phd.Migrations
 
                     b.Property<string>("ConsultantWorkPlace");
 
+                    b.Property<int>("CreditNumber");
+
+                    b.Property<DateTime>("DefenceDate");
+
+                    b.Property<int>("DrawingsTablesNumber");
+
+                    b.Property<DateTime>("EndTime");
+
                     b.Property<string>("Fname");
 
                     b.Property<string>("Iin");
+
+                    b.Property<string>("LevelOfPreparation");
 
                     b.Property<string>("Lname");
 
                     b.Property<string>("Mname");
 
-                    b.Property<string>("ResearchSupervisorFname");
+                    b.Property<string>("ProtocolNumber");
 
-                    b.Property<string>("ResearchSupervisorLname");
-
-                    b.Property<string>("ResearchSupervisorMname");
-
-                    b.Property<string>("ResearchSupervisorPosition");
-
-                    b.Property<string>("ResearchSupervisorWorkPlace");
+                    b.Property<string>("ReviewerAcademicDegree");
 
                     b.Property<string>("ReviewerFname");
 
@@ -240,13 +250,39 @@ namespace Phd.Migrations
 
                     b.Property<string>("ReviewerPosition");
 
+                    b.Property<string>("ReviewerReviewAvailability");
+
                     b.Property<string>("ReviewerWorkPlace");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<string>("StudyYear");
+
+                    b.Property<string>("SupervisorAcademicDegree");
+
+                    b.Property<string>("SupervisorConlusion");
+
+                    b.Property<string>("SupervisorFname");
+
+                    b.Property<string>("SupervisorLname");
+
+                    b.Property<string>("SupervisorMname");
+
+                    b.Property<string>("SupervisorPosition");
+
+                    b.Property<string>("SupervisorReviewAvailability");
+
+                    b.Property<string>("SupervisorWorkPlace");
+
+                    b.Property<int>("ThesisPagesNumber");
 
                     b.Property<string>("ThesisTopicEng");
 
                     b.Property<string>("ThesisTopicKaz");
 
                     b.Property<string>("ThesisTopicRus");
+
+                    b.Property<string>("TypeOfStateAttestation");
 
                     b.HasKey("Id");
 
@@ -286,6 +322,10 @@ namespace Phd.Migrations
 
                     b.Property<int>("BRStudentId");
 
+                    b.Property<string>("Opinion");
+
+                    b.Property<string>("Question");
+
                     b.Property<string>("UserId");
 
                     b.Property<int>("Value");
@@ -316,6 +356,70 @@ namespace Phd.Migrations
                     b.HasIndex("BMajorId");
 
                     b.ToTable("BRStudentGroup");
+                });
+
+            modelBuilder.Entity("Phd.Models.DictionaryAcademicDegree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ValueEng");
+
+                    b.Property<string>("ValueKaz");
+
+                    b.Property<string>("ValueRus");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DictionaryAcademicDegree");
+                });
+
+            modelBuilder.Entity("Phd.Models.DictionaryStatusAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ValueEng");
+
+                    b.Property<string>("ValueKaz");
+
+                    b.Property<string>("ValueRus");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DictionaryStatusAvailability");
+                });
+
+            modelBuilder.Entity("Phd.Models.DictionaryStatusConclusion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ValueEng");
+
+                    b.Property<string>("ValueKaz");
+
+                    b.Property<string>("ValueRus");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DictionaryStatusConclusion");
+                });
+
+            modelBuilder.Entity("Phd.Models.DictionaryStudyYear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DictionaryStudyYear");
                 });
 
             modelBuilder.Entity("Phd.Models.Faculty", b =>

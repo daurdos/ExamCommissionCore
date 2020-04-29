@@ -17,13 +17,18 @@ namespace Phd.Models
         public string ThesisTopicRus { get; set; }
         public string ThesisTopicKaz { get; set; }
         public string ThesisTopicEng { get; set; }
+        public int ThesisPagesNumber { get; set; }  // добавил в соответсвии с презой
+        public int DrawingsTablesNumber { get; set; } // добавил в соответсвии с презой
 
         // реквизиты научного руководителя ResearchSupervisor 
-        public string ResearchSupervisorFname { get; set; }
-        public string ResearchSupervisorMname { get; set; }
-        public string ResearchSupervisorLname { get; set; }
-        public string ResearchSupervisorWorkPlace { get; set; }
-        public string ResearchSupervisorPosition { get; set; }
+        public string SupervisorFname { get; set; }
+        public string SupervisorMname { get; set; }
+        public string SupervisorLname { get; set; }
+        public string SupervisorWorkPlace { get; set; }
+        public string SupervisorPosition { get; set; }
+        public string SupervisorAcademicDegree { get; set; } // добавил с презы, данные будут с соотв таблицы !!!!!!
+        public string SupervisorReviewAvailability { get; set; } // добавил с презы, данные enum Availability
+        public string SupervisorConclusion { get; set; } // добавил с презы, данные enum Conclusion
         // ***
 
         // реквизиты рецензента Reviewer
@@ -32,7 +37,9 @@ namespace Phd.Models
         public string ReviewerLname { get; set; }
         public string ReviewerWorkPlace { get; set; }
         public string ReviewerPosition { get; set; }
+        public string ReviewerAcademicDegree { get; set; }
         public int ReviewerGrade { get; set; }
+        public string ReviewerReviewAvailability { get; set; } // добавил с презы, данные enum Availability
         // ***
 
         // реквизиты консультанта Consultant
@@ -41,6 +48,20 @@ namespace Phd.Models
         public string ConsultantLname { get; set; }
         public string ConsultantWorkPlace { get; set; }
         public string ConsultantPosition { get; set; }
+        public string ConsultantAcademicDegree { get; set; } // добавил с презы, данные будут с соотв таблицы !!!!!!!
+        // ***
+
+        // Сведения по защите
+        public string ProtocolNumber { get; set; }
+        public DateTime DefenceDate { get; set; }
+        public string TypeOfStateAttestation { get; set; }
+        public int CreditNumber { get; set; }
+        public string StudyYear { get; set; } // добавил с презы, данные будут с соотв таблицы !!!!!!!!!!!!
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string AnswerCharacteristic { get; set; }
+        public string LevelOfPreparation { get; set; }
+        public string AbsentMemberFullName { get; set; }
         // ***
 
         /// Привязанность к одной группе
@@ -52,5 +73,61 @@ namespace Phd.Models
         public ICollection<BRStudentGrade> BRStudentGrade { get; set; }
         public ICollection<BRStudentDoc> BRStudentDoc { get; set; }
         // ***
+
+
+
+        public string ReturnGradeLetter(double grade)
+        {
+            string letter = "No grade";
+
+            if ((grade <= 100) && (grade >= 95))
+            {
+                return letter = "A";
+            }
+            if ((grade <= 94) && (grade >= 90))
+            {
+                return letter = "A-";
+            }
+            if ((grade <= 89) && (grade >= 85))
+            {
+                return letter = "B+";
+            }
+            if ((grade <= 84) && (grade >= 80))
+            {
+                return letter = "B";
+            }
+            if ((grade <= 79) && (grade >= 75))
+            {
+                return letter = "B-";
+            }
+            if ((grade <= 74) && (grade >= 70))
+            {
+                return letter = "C+";
+            }
+            if ((grade <= 69) && (grade >= 65))
+            {
+                return letter = "C";
+            }
+            if ((grade <= 64) && (grade >= 60))
+            {
+                return letter = "C-";
+            }
+            if ((grade <= 59) && (grade >= 55))
+            {
+                return letter = "D+";
+            }
+            if ((grade <= 54) && (grade >= 50))
+            {
+                return letter = "D";
+            }
+            if ((grade <= 49) && (grade >= 0))
+            {
+                return letter = "F";
+            }
+
+            return letter;
+        }
+
+
     }
 }

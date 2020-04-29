@@ -12,12 +12,22 @@ namespace Phd.Models
 
         [Display(Name = "Оценка (%)")]
         public int Value { get; set; }
+        public string Opinion { get; set; }  // добавил в соотвествии с презентацией
+        public string Question { get; set; } // добавил в соотвествии с презентацией
 
-
+        // связи
         public int BRStudentId { get; set; }
         public BRStudent BRStudent { get; set; }
-
         public string UserId { get; set; }
         public User User { get; set; }
+        // ***
+
+
+
+
+
+        
+
+
     }
 }

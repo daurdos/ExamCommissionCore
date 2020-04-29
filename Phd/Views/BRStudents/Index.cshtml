@@ -1,0 +1,275 @@
+﻿@model IEnumerable<Phd.Models.BRStudent>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Iin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThesisTopicRus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThesisTopicKaz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThesisTopicEng)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThesisPagesNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrawingsTablesNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorFname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorMname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorLname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorWorkPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorAcademicDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorReviewAvailability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupervisorConclusion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerFname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerMname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerLname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerWorkPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerAcademicDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerGrade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewerReviewAvailability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantFname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantMname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantLname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantWorkPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsultantAcademicDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProtocolNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefenceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfStateAttestation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerCharacteristic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LevelOfPreparation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AbsentMemberFullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThesisTopicRus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThesisTopicKaz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThesisTopicEng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThesisPagesNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrawingsTablesNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorFname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorMname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorLname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorWorkPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorAcademicDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorReviewAvailability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorConclusion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerFname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerMname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerLname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerWorkPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerAcademicDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerGrade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerReviewAvailability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantFname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantMname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantLname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantWorkPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsultantAcademicDegree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProtocolNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DefenceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfStateAttestation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerCharacteristic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LevelOfPreparation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AbsentMemberFullName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -22,6 +22,10 @@ namespace Phd.Models
         public DbSet<Phd.Models.BRStudentDoc> BRStudentDoc { get; set; }
         public DbSet<Phd.Models.StudentDocType> StudentDocType { get; set; }
         public DbSet<Phd.Models.UserActivity> UserActivitiy { get; set; }
+        public DbSet<Phd.Models.DictionaryAcademicDegree> DictionaryAcademicDegree { get; set; }
+        public DbSet<Phd.Models.DictionaryStatusAvailability> DictionaryStatusAvailability { get; set; }
+        public DbSet<Phd.Models.DictionaryStatusConclusion> DictionaryStatusConclusion { get; set; }
+        public DbSet<Phd.Models.DictionaryStudyYear> DictionaryStudyYear { get; set; }
 
         /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

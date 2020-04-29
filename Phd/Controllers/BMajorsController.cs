@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -355,9 +356,15 @@ namespace Phd.Controllers
 
 
         // начало создания студентов
-        public async Task<IActionResult> CreateStudentAsync(int id)
+        public async Task<IActionResult> CreateStudentRusAsync(int id)
         {
             ViewBag.Id = id;
+
+            ViewData["AcademicDegreeRus"] = new SelectList(Context.DictionaryAcademicDegree, "ValueRus", "ValueRus");
+            ViewData["StatusAvailabilityRus"] = new SelectList(Context.DictionaryStatusAvailability, "ValueRus", "ValueRus");
+            ViewData["StatusConclusionRus"] = new SelectList(Context.DictionaryStatusConclusion, "ValueRus", "ValueRus");
+            ViewData["StudyYear"] = new SelectList(Context.DictionaryStudyYear, "Value", "Value");
+
             return View();
         }
 
@@ -365,7 +372,7 @@ namespace Phd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStudentAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ResearchSupervisorFname,ResearchSupervisorMname,ResearchSupervisorLname,ResearchSupervisorWorkPlace,ResearchSupervisorPosition,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerGrade,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,BRStudentGroupId")] BRStudent bRStudent)
+        public async Task<IActionResult> CreateStudentRusAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
         {
             string userName = UserManager.GetUserName(HttpContext.User);
             if (ModelState.IsValid)
@@ -378,7 +385,7 @@ namespace Phd.Controllers
                 {
                     UserName = userName,
                     TimeStamp = DateTime.Now,
-                    Activity = "Создание студента",
+                    Activity = "Создание студента русс.яз.",
                     Description = $"Студент № {bRStudent.Id}, ИИН: {bRStudent.Iin}, создан {userName} в {DateTime.Now}"
                 };
                 Context.Add(userActivity);
@@ -394,7 +401,7 @@ namespace Phd.Controllers
         // конец создания студентов
 
         // начало получения студентов
-        public async Task<IActionResult> GetStudentsAsync(int id)
+        public async Task<IActionResult> GetStudentsRusAsync(int id)
         {
             ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
             var students = await Context.BRStudent
@@ -404,6 +411,147 @@ namespace Phd.Controllers
             return View(students);
         }
         // конец получения студентов
+
+
+
+
+
+
+
+
+
+        // начало создания студентов
+        public async Task<IActionResult> CreateStudentKazAsync(int id)
+        {
+            ViewBag.Id = id;
+
+            ViewData["AcademicDegreeKaz"] = new SelectList(Context.DictionaryAcademicDegree, "ValueKaz", "ValueKaz");    
+            ViewData["StatusAvailabilityKaz"] = new SelectList(Context.DictionaryStatusAvailability, "ValueKaz", "ValueKaz");
+            ViewData["StatusConclusionKaz"] = new SelectList(Context.DictionaryStatusConclusion, "ValueKaz", "ValueKaz");
+            ViewData["StudyYear"] = new SelectList(Context.DictionaryStudyYear, "Value", "Value");
+
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateStudentKazAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
+        {
+            string userName = UserManager.GetUserName(HttpContext.User);
+            if (ModelState.IsValid)
+            {
+                Context.Add(bRStudent);
+                await Context.SaveChangesAsync();
+
+                ////// DAUREN: ADDING USER LOGS
+                UserActivity userActivity = new UserActivity()
+                {
+                    UserName = userName,
+                    TimeStamp = DateTime.Now,
+                    Activity = "Создание студента каз.яз.",
+                    Description = $"Студент № {bRStudent.Id}, ИИН: {bRStudent.Iin}, создан {userName} в {DateTime.Now}"
+                };
+                Context.Add(userActivity);
+                await Context.SaveChangesAsync();
+                ///***
+
+
+
+                return RedirectToAction(nameof(Success));
+            }
+            return View(bRStudent);
+        }
+        // конец создания студентов
+
+        // начало получения студентов
+        public async Task<IActionResult> GetStudentsKazAsync(int id)
+        {
+            ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
+            var students = await Context.BRStudent
+                                   .Where(m => m.BRStudentGroupId == id)
+                                   .ToListAsync();
+
+            return View(students);
+        }
+        // конец получения студентов
+
+
+
+
+
+
+        // начало создания студентов
+        public async Task<IActionResult> CreateStudentEngAsync(int id)
+        {
+            ViewBag.Id = id;
+
+            ViewData["AcademicDegreeEng"] = new SelectList(Context.DictionaryAcademicDegree, "ValueEng", "ValueEng");
+            ViewData["StatusAvailabilityEng"] = new SelectList(Context.DictionaryStatusAvailability, "ValueEng", "ValueEng");
+            ViewData["StatusConclusionEng"] = new SelectList(Context.DictionaryStatusConclusion, "ValueEng", "ValueEng");
+
+            ViewData["StudyYear"] = new SelectList(Context.DictionaryStudyYear, "Value", "Value");
+
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateStudentEngAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
+        {
+            string userName = UserManager.GetUserName(HttpContext.User);
+            if (ModelState.IsValid)
+            {
+                Context.Add(bRStudent);
+                await Context.SaveChangesAsync();
+
+                ////// DAUREN: ADDING USER LOGS
+                UserActivity userActivity = new UserActivity()
+                {
+                    UserName = userName,
+                    TimeStamp = DateTime.Now,
+                    Activity = "Создание студента англ.яз.",
+                    Description = $"Студент № {bRStudent.Id}, ИИН: {bRStudent.Iin}, создан {userName} в {DateTime.Now}"
+                };
+                Context.Add(userActivity);
+                await Context.SaveChangesAsync();
+                ///***
+
+
+
+                return RedirectToAction(nameof(Success));
+            }
+            return View(bRStudent);
+        }
+        // конец создания студентов
+
+        // начало получения студентов
+        public async Task<IActionResult> GetStudentsEngAsync(int id)
+        {
+            ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
+            var students = await Context.BRStudent
+                                   .Where(m => m.BRStudentGroupId == id)
+                                   .ToListAsync();
+
+            return View(students);
+        }
+        // конец получения студентов
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // начало создания оценки
         public async Task<IActionResult> CreateStudentGradeAsync(int studentId, string userId)
@@ -426,7 +574,7 @@ namespace Phd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStudentGradeAsync([Bind("Value,BRStudentId,UserId")] BRStudentGrade bRStudentGrade)
+        public async Task<IActionResult> CreateStudentGradeAsync([Bind("Value,Opinion,Question,BRStudentId,UserId")] BRStudentGrade bRStudentGrade)
         {
             string userName = UserManager.GetUserName(HttpContext.User);
             var studentIin = await Context.BRStudent
@@ -460,8 +608,261 @@ namespace Phd.Controllers
             return View(bRStudentGrade);
         }
 
+
+
         [HttpGet]
-        public async Task<IActionResult> GetStudentGradeAsync(int studentId)
+        public async Task<IActionResult> GetStudentGradeRusAsync(int studentId)
+        {
+            //НЕ УДАЛЯТЬ!!!!
+            // рабочий синхронный код для вытаскивания шифра специальности
+
+            //var bRStudentList = Context.BRStudent.ToList();
+            //var bRStudent = bRStudentList.Where(x => x.Id == studentId).FirstOrDefault();
+
+            //var bRGroupList = Context.BRStudentGroup.ToList();
+            //var bRGroup = bRGroupList.Where(x => x.Id == bRStudent.BRStudentGroupId).FirstOrDefault();
+
+
+            //var majorList = Context.BMajor.ToList();
+            //var studentMajor = majorList.Where(x => x.Id == bRGroup.BMajorId).FirstOrDefault();
+
+            // конец рабочий синхронный код для вытаскивания шифра специальности
+
+
+
+            //  рабочий асинхронный код для вытаскивания шифра специальности
+            var bRStudentAsync = await Context.BRStudent
+                                              .Where(x => x.Id == studentId)
+                                              .FirstOrDefaultAsync();
+
+            var bRGroupAsync = await Context.BRStudentGroup
+                                            .Where(x => x.Id == bRStudentAsync.BRStudentGroupId)
+                                            .FirstOrDefaultAsync();
+
+            var studentMajorAsync = await Context.BMajor
+                                                 .Where(x => x.Id == bRGroupAsync.BMajorId)
+                                                 .FirstOrDefaultAsync();
+            // конец рабочий асинхронный код для вытаскивания шифра специальности            
+
+            var student = await Context.BRStudent.Include(x => x.BRStudentGrade)
+                                           .FirstOrDefaultAsync(x => x.Id == studentId);
+
+            var grades = await Context.BRStudentGrade.Include(x => x.User)
+                                                .Where(x => x.BRStudentId == studentId)
+                                                .ToListAsync();
+
+            List<User> usersFromGradesList = new List<User>();
+            foreach (var g in grades)
+            {
+                usersFromGradesList.Add(new User
+                {
+                    Id = g.User.Id,
+                    UserName = g.User.UserName,
+                    NormalizedUserName = g.User.NormalizedUserName,
+                    Email = g.User.Email,
+                    EmailConfirmed = g.User.EmailConfirmed,
+                    PasswordHash = g.User.PasswordHash,
+                    SecurityStamp = g.User.SecurityStamp,
+                    ConcurrencyStamp = g.User.ConcurrencyStamp,
+                    PhoneNumber = g.User.PhoneNumber,
+                    PhoneNumberConfirmed = g.User.PhoneNumberConfirmed,
+                    TwoFactorEnabled = g.User.TwoFactorEnabled,
+                    LockoutEnd = g.User.LockoutEnd,
+                    LockoutEnabled = g.User.LockoutEnabled,
+                    AccessFailedCount = g.User.AccessFailedCount,
+                    LastName = g.User.LastName,
+                    FirstName = g.User.FirstName,
+                    MiddleName = g.User.MiddleName,
+                    UName = g.User.UName,
+                    BMajorId = g.User.BMajorId
+                });
+            }
+
+            //////////// вывод ролей пользователя
+
+            var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
+            var roles = await Context.Roles.ToListAsync(); // берем все имеющиеся роли
+            var userRoles = await Context.UserRoles.ToListAsync(); // берем все связи пользователей и ролей
+
+            var userWithRolesList = new List<UserWithRoles>(users.Count);
+            foreach (var user in usersFromGradesList)
+            {
+                // НЕ УДАЛЯТЬ !!! синхронная реализация
+                //var roleIds = userRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).ToList(); // список Id ролей которые прикреплены к определенному пользователю
+                // НЕ УДАЛЯТЬ!!! синхронная реализация
+                //var currentUserRoles = roles.Where(x => roleIds.Contains(x.Id)).Select(x => x.Name).ToList();
+
+                //оптимизированный асинхронный метод
+                var roleIds = await Context.UserRoles
+                                           .Where(x => x.UserId == user.Id)
+                                           .Select(x => x.RoleId)
+                                           .ToListAsync(); //оптимизированный асинхронный метод
+
+                //оптимизированный асинхронный метод
+                var currentUserRoles = await Context.Roles
+                                                    .Where(x => roleIds
+                                                    .Contains(x.Id)).Select(x => x.Name)
+                                                    .ToListAsync(); // оптимизированный асинхронный метод
+
+                userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+            }
+
+            string adminRole = "admin";
+
+            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+
+
+             
+
+            StudentGradeViewModel model = new StudentGradeViewModel
+            {
+                StudentLName = student.Lname,
+                StudentFName = student.Fname,
+                StudentMName = student.Mname,
+                StudentThesisName = student.ThesisTopicRus,
+                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                Users = users,
+                Grades = grades,
+                UserWithRoles = userWithRolesList,
+                MajorCypher = studentMajorAsync.Cypher.ToString(),
+                MajorName = studentMajorAsync.NameRus.ToString(),
+                Chairman = chairm.ToString(),
+                Secretary = chairm.ToString(),
+                SupervisorLName = student.SupervisorLname,
+                SupervisorFName = student.SupervisorFname,
+                SupervisorMName = student.SupervisorMname,
+                ReviewerLName = student.ReviewerLname,
+                ReviewerFName = student.ReviewerFname,
+                ReviewerMName = student.ReviewerMname,
+                ThesPagesNumber = student.ThesisPagesNumber,
+                DrawTablesNumber = student.DrawingsTablesNumber,
+                GeneralCharacteristic = student.AnswerCharacteristic,
+                KnowledgeLevel = student.LevelOfPreparation,
+                GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value))
+
+
+
+
+
+
+            };
+
+            return View(model);
+        }
+
+
+
+
+
+        
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentGradeKazAsync(int studentId)
+        {
+            var phdContext = await Context.BRStudentGroup
+                                    .Include(b => b.BRStudent)
+                                    .Where(b => b.Id == studentId)
+                                    .FirstOrDefaultAsync();          // вытаскиваю все потоки студентов
+                                                                     // чтобы дальше вытащить шифр специальности
+
+            // НЕ УДАЛЯТЬ!!! синхронная реализация
+            //var bMajors = await Context.BMajor.ToListAsync(); // вытаскиваю все специльности 
+            // чтобы дальше вытащить шифр специальности
+            // НЕ УДАЛЯТЬ!!! синхронная реализация
+            //var studentMajor = bMajors.Where(x => x.Id == phdContext.Id).FirstOrDefault(); // вытаскиваю специальность,
+            //из которой буду вытаскивать шифр
+
+            // оптимизированный асинхронный метод
+            var studentMajor = await Context.BMajor
+                                            .Where(x => x.Id == phdContext.Id)
+                                            .FirstOrDefaultAsync(); // оптимизированный асинхронный метод
+
+            var student = await Context.BRStudent.Include(x => x.BRStudentGrade)
+                                           .FirstOrDefaultAsync(x => x.Id == studentId);
+
+            var grades = await Context.BRStudentGrade.Include(x => x.User)
+                                                .Where(x => x.BRStudentId == studentId)
+                                                .ToListAsync();
+
+            List<User> usersFromGradesList = new List<User>();
+            foreach (var g in grades)
+            {
+                usersFromGradesList.Add(new User
+                {
+                    Id = g.User.Id,
+                    UserName = g.User.UserName,
+                    NormalizedUserName = g.User.NormalizedUserName,
+                    Email = g.User.Email,
+                    EmailConfirmed = g.User.EmailConfirmed,
+                    PasswordHash = g.User.PasswordHash,
+                    SecurityStamp = g.User.SecurityStamp,
+                    ConcurrencyStamp = g.User.ConcurrencyStamp,
+                    PhoneNumber = g.User.PhoneNumber,
+                    PhoneNumberConfirmed = g.User.PhoneNumberConfirmed,
+                    TwoFactorEnabled = g.User.TwoFactorEnabled,
+                    LockoutEnd = g.User.LockoutEnd,
+                    LockoutEnabled = g.User.LockoutEnabled,
+                    AccessFailedCount = g.User.AccessFailedCount,
+                    LastName = g.User.LastName,
+                    FirstName = g.User.FirstName,
+                    MiddleName = g.User.MiddleName,
+                    UName = g.User.UName,
+                    BMajorId = g.User.BMajorId
+                });
+            }
+
+            //////////// вывод ролей пользователя
+
+            var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
+            var roles = await Context.Roles.ToListAsync(); // берем все имеющиеся роли
+            var userRoles = await Context.UserRoles.ToListAsync(); // берем все связи пользователей и ролей
+
+            var userWithRolesList = new List<UserWithRoles>(users.Count);
+            foreach (var user in usersFromGradesList)
+            {
+                // НЕ УДАЛЯТЬ !!! синхронная реализация
+                //var roleIds = userRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).ToList(); // список Id ролей которые прикреплены к определенному пользователю
+                // НЕ УДАЛЯТЬ!!! синхронная реализация
+                //var currentUserRoles = roles.Where(x => roleIds.Contains(x.Id)).Select(x => x.Name).ToList();
+
+                //оптимизированный асинхронный метод
+                var roleIds = await Context.UserRoles
+                                           .Where(x => x.UserId == user.Id)
+                                           .Select(x => x.RoleId)
+                                           .ToListAsync(); //оптимизированный асинхронный метод
+
+                //оптимизированный асинхронный метод
+                var currentUserRoles = await Context.Roles
+                                                    .Where(x => roleIds
+                                                    .Contains(x.Id)).Select(x => x.Name)
+                                                    .ToListAsync(); // оптимизированный асинхронный метод
+
+                userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+            }
+
+            StudentGradeViewModel model = new StudentGradeViewModel
+            {
+                StudentLName = student.Lname,
+                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                Users = users,
+                Grades = grades,
+                UserWithRoles = userWithRolesList,
+                //MajorCypher = studentMajor.Cypher.ToString()
+            };
+
+            return View(model);
+        }
+
+
+
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentGradeEngAsync(int studentId)
         {
             var phdContext = await Context.BRStudentGroup
                                     .Include(b => b.BRStudent)
@@ -546,7 +947,7 @@ namespace Phd.Controllers
 
             StudentGradeViewModel model = new StudentGradeViewModel
             {
-                StudentName = student.Lname,
+                StudentLName = student.Lname,
                 AverageGrade = student.BRStudentGrade.Average(x => x.Value),
                 Users = users,
                 Grades = grades,
@@ -557,6 +958,121 @@ namespace Phd.Controllers
             return View(model);
         }
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentRusSummarizedSheetAsync(int studentId)
+        {
+
+            //НЕ УДАЛЯТЬ!!!!
+            // рабочий синхронный код для вытаскивания шифра специальности
+
+            //var bRStudentList = Context.BRStudent.ToList();
+            //var bRStudent = bRStudentList.Where(x => x.Id == studentId).FirstOrDefault();
+
+            //var bRGroupList = Context.BRStudentGroup.ToList();
+            //var bRGroup = bRGroupList.Where(x => x.Id == bRStudent.BRStudentGroupId).FirstOrDefault();
+
+
+            //var majorList = Context.BMajor.ToList();
+            //var studentMajor = majorList.Where(x => x.Id == bRGroup.BMajorId).FirstOrDefault();
+
+            // конец рабочий синхронный код для вытаскивания шифра специальности
+
+
+
+            //  рабочий асинхронный код для вытаскивания шифра специальности
+            var bRStudentAsync = await Context.BRStudent
+                                              .Where(x => x.Id == studentId)
+                                              .FirstOrDefaultAsync();
+
+            var bRGroupAsync = await Context.BRStudentGroup
+                                            .Where(x => x.Id == bRStudentAsync.BRStudentGroupId)
+                                            .FirstOrDefaultAsync();
+
+            var studentMajorAsync = await Context.BMajor
+                                                 .Where(x => x.Id == bRGroupAsync.BMajorId)
+                                                 .FirstOrDefaultAsync();
+            // конец рабочий асинхронный код для вытаскивания шифра специальности            
+
+            var student = await Context.BRStudent.Include(x => x.BRStudentGrade)
+                                           .FirstOrDefaultAsync(x => x.Id == studentId);
+
+            var grades = await Context.BRStudentGrade.Include(x => x.User)
+                                                .Where(x => x.BRStudentId == studentId)
+                                                .ToListAsync();
+
+            List<User> usersFromGradesList = new List<User>();
+            foreach (var g in grades)
+            {
+                usersFromGradesList.Add(new User
+                {
+                    Id = g.User.Id,
+                    UserName = g.User.UserName,
+                    NormalizedUserName = g.User.NormalizedUserName,
+                    Email = g.User.Email,
+                    EmailConfirmed = g.User.EmailConfirmed,
+                    PasswordHash = g.User.PasswordHash,
+                    SecurityStamp = g.User.SecurityStamp,
+                    ConcurrencyStamp = g.User.ConcurrencyStamp,
+                    PhoneNumber = g.User.PhoneNumber,
+                    PhoneNumberConfirmed = g.User.PhoneNumberConfirmed,
+                    TwoFactorEnabled = g.User.TwoFactorEnabled,
+                    LockoutEnd = g.User.LockoutEnd,
+                    LockoutEnabled = g.User.LockoutEnabled,
+                    AccessFailedCount = g.User.AccessFailedCount,
+                    LastName = g.User.LastName,
+                    FirstName = g.User.FirstName,
+                    MiddleName = g.User.MiddleName,
+                    UName = g.User.UName,
+                    BMajorId = g.User.BMajorId
+                });
+            }
+
+            //////////// вывод ролей пользователя
+
+            var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
+            var roles = await Context.Roles.ToListAsync(); // берем все имеющиеся роли
+            var userRoles = await Context.UserRoles.ToListAsync(); // берем все связи пользователей и ролей
+
+            var userWithRolesList = new List<UserWithRoles>(users.Count);
+            foreach (var user in usersFromGradesList)
+            {
+                // НЕ УДАЛЯТЬ !!! синхронная реализация
+                //var roleIds = userRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).ToList(); // список Id ролей которые прикреплены к определенному пользователю
+                // НЕ УДАЛЯТЬ!!! синхронная реализация
+                //var currentUserRoles = roles.Where(x => roleIds.Contains(x.Id)).Select(x => x.Name).ToList();
+
+                //оптимизированный асинхронный метод
+                var roleIds = await Context.UserRoles
+                                           .Where(x => x.UserId == user.Id)
+                                           .Select(x => x.RoleId)
+                                           .ToListAsync(); //оптимизированный асинхронный метод
+
+                //оптимизированный асинхронный метод
+                var currentUserRoles = await Context.Roles
+                                                    .Where(x => roleIds
+                                                    .Contains(x.Id)).Select(x => x.Name)
+                                                    .ToListAsync(); // оптимизированный асинхронный метод
+
+                userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+            }
+
+            StudentGradeViewModel model = new StudentGradeViewModel
+            {
+                StudentLName = student.Lname,
+                StudentFName = student.Fname,
+                StudentMName = student.Mname,
+                StudentThesisName = student.ThesisTopicRus,
+                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                Users = users,
+                Grades = grades,
+                UserWithRoles = userWithRolesList,
+                MajorCypher = studentMajorAsync.Cypher.ToString()
+            };
+
+            return View(model);
+        }
 
 
 

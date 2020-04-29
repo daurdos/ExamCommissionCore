@@ -23,6 +23,64 @@ namespace Phd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DictionaryAcademicDegree",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ValueRus = table.Column<string>(nullable: true),
+                    ValueKaz = table.Column<string>(nullable: true),
+                    ValueEng = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DictionaryAcademicDegree", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DictionaryStatusAvailability",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ValueRus = table.Column<string>(nullable: true),
+                    ValueKaz = table.Column<string>(nullable: true),
+                    ValueEng = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DictionaryStatusAvailability", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DictionaryStatusConclusion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ValueRus = table.Column<string>(nullable: true),
+                    ValueKaz = table.Column<string>(nullable: true),
+                    ValueEng = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DictionaryStatusConclusion", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DictionaryStudyYear",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DictionaryStudyYear", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Faculty",
                 columns: table => new
                 {
@@ -306,22 +364,40 @@ namespace Phd.Migrations
                     ThesisTopicRus = table.Column<string>(nullable: true),
                     ThesisTopicKaz = table.Column<string>(nullable: true),
                     ThesisTopicEng = table.Column<string>(nullable: true),
-                    ResearchSupervisorFname = table.Column<string>(nullable: true),
-                    ResearchSupervisorMname = table.Column<string>(nullable: true),
-                    ResearchSupervisorLname = table.Column<string>(nullable: true),
-                    ResearchSupervisorWorkPlace = table.Column<string>(nullable: true),
-                    ResearchSupervisorPosition = table.Column<string>(nullable: true),
+                    ThesisPagesNumber = table.Column<int>(nullable: false),
+                    DrawingsTablesNumber = table.Column<int>(nullable: false),
+                    SupervisorFname = table.Column<string>(nullable: true),
+                    SupervisorMname = table.Column<string>(nullable: true),
+                    SupervisorLname = table.Column<string>(nullable: true),
+                    SupervisorWorkPlace = table.Column<string>(nullable: true),
+                    SupervisorPosition = table.Column<string>(nullable: true),
+                    SupervisorAcademicDegree = table.Column<string>(nullable: true),
+                    SupervisorReviewAvailability = table.Column<string>(nullable: true),
+                    SupervisorConlusion = table.Column<string>(nullable: true),
                     ReviewerFname = table.Column<string>(nullable: true),
                     ReviewerMname = table.Column<string>(nullable: true),
                     ReviewerLname = table.Column<string>(nullable: true),
                     ReviewerWorkPlace = table.Column<string>(nullable: true),
                     ReviewerPosition = table.Column<string>(nullable: true),
+                    ReviewerAcademicDegree = table.Column<string>(nullable: true),
                     ReviewerGrade = table.Column<int>(nullable: false),
+                    ReviewerReviewAvailability = table.Column<string>(nullable: true),
                     ConsultantFname = table.Column<string>(nullable: true),
                     ConsultantMname = table.Column<string>(nullable: true),
                     ConsultantLname = table.Column<string>(nullable: true),
                     ConsultantWorkPlace = table.Column<string>(nullable: true),
                     ConsultantPosition = table.Column<string>(nullable: true),
+                    ConsultantAcademicDegree = table.Column<string>(nullable: true),
+                    ProtocolNumber = table.Column<string>(nullable: true),
+                    DefenceDate = table.Column<DateTime>(nullable: false),
+                    TypeOfStateAttestation = table.Column<string>(nullable: true),
+                    CreditNumber = table.Column<int>(nullable: false),
+                    StudyYear = table.Column<string>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    AnswerCharacteristic = table.Column<string>(nullable: true),
+                    LevelOfPreparation = table.Column<string>(nullable: true),
+                    AbsentMemberFullName = table.Column<string>(nullable: true),
                     BRStudentGroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -370,6 +446,8 @@ namespace Phd.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Value = table.Column<int>(nullable: false),
+                    Opinion = table.Column<string>(nullable: true),
+                    Question = table.Column<string>(nullable: true),
                     BRStudentId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
@@ -505,6 +583,18 @@ namespace Phd.Migrations
 
             migrationBuilder.DropTable(
                 name: "BRStudentGrade");
+
+            migrationBuilder.DropTable(
+                name: "DictionaryAcademicDegree");
+
+            migrationBuilder.DropTable(
+                name: "DictionaryStatusAvailability");
+
+            migrationBuilder.DropTable(
+                name: "DictionaryStatusConclusion");
+
+            migrationBuilder.DropTable(
+                name: "DictionaryStudyYear");
 
             migrationBuilder.DropTable(
                 name: "UserActivitiy");

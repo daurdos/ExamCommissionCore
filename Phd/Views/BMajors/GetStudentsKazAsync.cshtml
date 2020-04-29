@@ -4,7 +4,7 @@
     ViewData["Title"] = "Просмотр студентов";
 }
 
-<h2>Просмотр студентов</h2>
+<h2>Просмотр студентов, обучавшихся на каз. яз.</h2>
 
 <table class="table">
     <thead>
@@ -25,7 +25,7 @@
                 <td>
 
                     <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeAsync" asp-route-studentId="@item.Id">Результаты</a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeEngAsync" asp-route-studentId="@item.Id">Результаты</a>
                 </td>
             </tr>
         }

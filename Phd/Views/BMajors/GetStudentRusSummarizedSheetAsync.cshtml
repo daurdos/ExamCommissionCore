@@ -1,0 +1,129 @@
+﻿@model Phd.ViewModels.StudentGradeViewModel
+
+@{
+    ViewData["Title"] = "Получить результаты";
+}
+    <head>
+        <h2 align="center">Сводный лист оценки</h2>
+        <h3 align="center">
+            к заседанию Государственной аттестационной комиссии
+        </h3>
+        <br>
+        <br>
+    </head>
+
+    <body>
+
+        <h4 align="center">по направлению подготовки кадров</h4>
+        <br>
+        <p>
+            <h4 align="center"><em>@Html.DisplayFor(model => model.MajorCypher) </em> </h4>
+        </p>
+        <br>
+
+
+
+        <h4 align="center"> по защите дипломных работ в ЕНУ им. Л.Н. Гумилева</h4>
+        <br>
+        <h4 align="center">от <em> @DateTime.Now</em> </h4>
+        <h4 align="center">Обучающийся: <em> @Html.DisplayFor(model => model.StudentLName) @Html.DisplayFor(model => model.StudentFName) @Html.DisplayFor(model => model.StudentMName)</em>  </h4>
+        <h4 align="center">Тема дипломной работы:  <em>@Html.DisplayFor(model => model.StudentThesisName)</em>  </h4>
+
+        <br>
+
+        <table class="demotable" align="center">
+            @foreach (var item in Model.Grades)
+            {
+                <tr>
+                    <td>
+                        <h4> @Html.DisplayFor(modelItem => item.User.LastName) @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.MiddleName)</h4>
+                    </td>
+                    <td>
+                        <h4> @Html.DisplayFor(modelItem => item.Value)%</h4>
+                    </td>
+                    <td>
+                        <h4> @Html.DisplayFor(modelItem => item.Opinion)</h4>
+                    </td>
+                    <td>
+                        <h4> @Html.DisplayFor(modelItem => item.Question) </h4>
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+
+        <h4 align="center"> Срединная оценка: <strong><b><em>@Html.DisplayFor(model => model.AverageGrade) %</em></b></strong></h4>
+
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik; /* счётчик с названием "schetchik" работает в рамках класса .demotable */
+    }
+
+        .demotable tr {
+            counter-increment: schetchik; /* при встрече тега tr счётчик с названием "schetchik" увеличивается на единицу */
+        }
+
+            .demotable td,
+            .demotable tr:before {
+                padding: .1em .5em;
+                border: 1px solid #E7D5C0;
+            }
+
+            .demotable tr:before {
+                content: counter(schetchik); /* значение счётчика с названием "schetchik" записывается в первую клетку строки */
+                display: table-cell;
+                vertical-align: middle;
+                color: #978777;
+            }
+</style>
+

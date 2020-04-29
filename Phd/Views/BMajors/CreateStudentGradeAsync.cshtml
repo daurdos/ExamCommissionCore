@@ -32,6 +32,16 @@
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Opinion" class="control-label"></label>
+                <input asp-for="Opinion" class="form-control" />
+                <span asp-validation-for="Opinion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question" class="control-label"></label>
+                <input asp-for="Question" class="form-control" />
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Выставить" class="btn btn-default" />
             </div>
         </form>

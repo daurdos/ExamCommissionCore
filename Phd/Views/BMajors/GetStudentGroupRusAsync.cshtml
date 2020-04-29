@@ -26,8 +26,8 @@
                 </td>
                 <td>
 
-                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentRusAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentsAsync" asp-route-studentId="@item.Id">Результаты</a>
+                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentRusAsync" asp-route-id="@item.Id">Создать студента</a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetStudentsRusAsync" asp-route-id="@item.Id">Студенты</a>
                 </td>
             </tr>
         }

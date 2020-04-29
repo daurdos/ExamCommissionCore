@@ -8,20 +8,14 @@
 
 @{ var aver = Model.AverageGrade;}
 
-@if (aver == null)
-{
-    <p>The price is OK.</p>
-}
-else
-{
 
-}
 
 
 
 <div><strong><b><em>@Html.DisplayFor(model => model.AverageGrade) %</em></b></strong></div>
 
 <div><strong><b><em>@Html.DisplayFor(model => model.StudentLName) </em></b></strong></div>
+<div><strong><b><em>@Html.DisplayFor(model => model.MajorCypher) </em></b></strong></div>
 
 
 
@@ -42,11 +36,13 @@ else
 }
 
 
-ALL USERS  WITH ROLES
+ USERS  WITH ROLES Кто ставил оценки
 <p> </p>
 @foreach (var item in Model.UserWithRoles)
 {
-    <p>@Html.DisplayFor(modelItem => item.UserName)</p>
-    <p>@Html.DisplayFor(modelItem => item.Roles)</p>
+    <p>@Html.DisplayFor(modelItem => item.UserName) Пользователь </p>
+    <p>@Html.DisplayFor(modelItem => item.Roles) Роль </p>
 }
+
+
 
