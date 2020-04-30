@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Phd.Models;
 using Phd.ViewModels;
 
@@ -372,7 +372,7 @@ namespace Phd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStudentRusAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
+        public async Task<IActionResult> CreateStudentRusAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,GroupNumber,IndividualCypher,TimeForQuestions,SummarizedSheetNumber,StatementNumber,ProjectAvailability,DrawingsTablesAvailability,ReviewAvailability,FeedbackAvailability,ExtraString1,ExtraString2,ExtraString3,ExtraString4,ExtraInt1,ExtraInt2,ExtraInt3,ExtraDouble1,ExtraDouble2,ExtaDateTime1,ExtraDateTime2,ExtraBool1,ExatraBool2,ExtraBool3,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
         {
             string userName = UserManager.GetUserName(HttpContext.User);
             if (ModelState.IsValid)
@@ -437,7 +437,7 @@ namespace Phd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStudentKazAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
+        public async Task<IActionResult> CreateStudentKazAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,GroupNumber,IndividualCypher,TimeForQuestions,SummarizedSheetNumber,StatementNumber,ProjectAvailability,DrawingsTablesAvailability,ReviewAvailability,FeedbackAvailability,ExtraString1,ExtraString2,ExtraString3,ExtraString4,ExtraInt1,ExtraInt2,ExtraInt3,ExtraDouble1,ExtraDouble2,ExtaDateTime1,ExtraDateTime2,ExtraBool1,ExatraBool2,ExtraBool3,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
         {
             string userName = UserManager.GetUserName(HttpContext.User);
             if (ModelState.IsValid)
@@ -500,7 +500,7 @@ namespace Phd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStudentEngAsync([Bind("Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
+        public async Task<IActionResult> CreateStudentEngAsync([Bind("Id,Iin,Fname,Mname,Lname,ThesisTopicRus,ThesisTopicKaz,ThesisTopicEng,ThesisPagesNumber,DrawingsTablesNumber,GroupNumber,IndividualCypher,TimeForQuestions,SummarizedSheetNumber,StatementNumber,ProjectAvailability,DrawingsTablesAvailability,ReviewAvailability,FeedbackAvailability,ExtraString1,ExtraString2,ExtraString3,ExtraString4,ExtraInt1,ExtraInt2,ExtraInt3,ExtraDouble1,ExtraDouble2,ExtaDateTime1,ExtraDateTime2,ExtraBool1,ExatraBool2,ExtraBool3,SupervisorFname,SupervisorMname,SupervisorLname,SupervisorWorkPlace,SupervisorPosition,SupervisorAcademicDegree,SupervisorReviewAvailability,SupervisorConclusion,ReviewerFname,ReviewerMname,ReviewerLname,ReviewerWorkPlace,ReviewerPosition,ReviewerAcademicDegree,ReviewerGrade,ReviewerReviewAvailability,ConsultantFname,ConsultantMname,ConsultantLname,ConsultantWorkPlace,ConsultantPosition,ConsultantAcademicDegree,ProtocolNumber,DefenceDate,TypeOfStateAttestation,CreditNumber,StudyYear,StartTime,EndTime,AnswerCharacteristic,LevelOfPreparation,AbsentMemberFullName,BRStudentGroupId")] BRStudent bRStudent)
         {
             string userName = UserManager.GetUserName(HttpContext.User);
             if (ModelState.IsValid)
@@ -740,7 +740,7 @@ namespace Phd.Controllers
                 KnowledgeLevel = student.LevelOfPreparation,
                 GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value)),
                 ReviewerGrade = student.ReviewerGrade,
-                MinutesNumber = student.Id
+                ProtocolNumber = student.ProtocolNumber
 
 
 
@@ -1114,7 +1114,60 @@ namespace Phd.Controllers
             var studentMajorAsync = await Context.BMajor
                                                  .Where(x => x.Id == bRGroupAsync.BMajorId)
                                                  .FirstOrDefaultAsync();
-            // конец рабочий асинхронный код для вытаскивания шифра специальности            
+            // конец рабочий асинхронный код для вытаскивания шифра специальности  
+
+
+            //  код для вытаскивания кафедры     НУЖНО ТЕСТИТЬ!!!
+            var bRStudAsync = await Context.BRStudent
+                                              .Where(x => x.Id == studentId)
+                                              .FirstOrDefaultAsync();
+
+            var bRGrAsync = await Context.BRStudentGroup
+                                            .Where(x => x.Id == bRStudentAsync.BRStudentGroupId)
+                                            .FirstOrDefaultAsync();
+
+            var studMajAsync = await Context.BMajor
+                                                 .Where(x => x.Id == bRGroupAsync.BMajorId)
+                                                 .FirstOrDefaultAsync();
+            var studAcadDepAsync = await Context.AcademicDepartment
+                                           .Where(x => x.Id == studMajAsync.AcademicDepartmentId)
+                                           .FirstOrDefaultAsync();
+
+
+
+
+            // конец код для вытаскивания кафедры 
+
+
+            // код для вытаскивания всех студентов прошедших защиту   НУЖНО ТЕСТИТЬ!!!
+            var departmentMajorsAsync = await Context.BMajor
+                                            .Where(x => x.AcademicDepartmentId == studAcadDepAsync.Id)
+                                            .ToListAsync();
+
+            List<BRStudentGroup> joinedGroupsList = new List<BRStudentGroup>(); // empty list
+            foreach (var gr in departmentMajorsAsync)
+            {
+                var listOfGroups =  await Context.BRStudentGroup
+                                              .Where(x => x.BMajorId == gr.Id)
+                                              .ToListAsync();
+                joinedGroupsList.AddRange(listOfGroups);
+            }
+
+            List<BRStudent> joinedBRStudentsList = new List<BRStudent>();
+
+            foreach (var st in joinedGroupsList)
+            {
+                var listOfStudents = await Context.BRStudent
+                                                  .Where(x => x.BRStudentGroupId == st.Id)
+                                                  .ToListAsync();
+                joinedBRStudentsList.AddRange(listOfStudents);
+            }
+
+                        
+            //конец код для вытаскивания всех студентов прошедших защиту
+
+
+
 
             var student = await Context.BRStudent.Include(x => x.BRStudentGrade)
                                            .FirstOrDefaultAsync(x => x.Id == studentId);
@@ -1181,6 +1234,19 @@ namespace Phd.Controllers
 
             StudentGradeViewModel model = new StudentGradeViewModel
             {
+                StatementNumber = student.StatementNumber,
+                StudyYear = student.StudyYear,
+                AttestationType = student.TypeOfStateAttestation,
+                Credit = student.CreditNumber,
+                AcademicDepartment = studAcadDepAsync.Name,
+                BRStudents = joinedBRStudentsList,
+
+
+
+
+
+
+
                 StudentLName = student.Lname,
                 StudentFName = student.Fname,
                 StudentMName = student.Mname,
@@ -1220,6 +1286,7 @@ namespace Phd.Controllers
         {
             return View();
         }
+
 
 
 

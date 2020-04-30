@@ -179,6 +179,20 @@ namespace Phd.Migrations
 
                     b.Property<string>("Cypher");
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<string>("NameEng");
 
                     b.Property<string>("NameKaz");
@@ -216,17 +230,53 @@ namespace Phd.Migrations
 
                     b.Property<string>("ConsultantWorkPlace");
 
-                    b.Property<int>("CreditNumber");
+                    b.Property<int?>("CreditNumber");
 
-                    b.Property<DateTime>("DefenceDate");
+                    b.Property<DateTime?>("DefenceDate");
 
-                    b.Property<int>("DrawingsTablesNumber");
+                    b.Property<bool>("DrawingsTablesAvailability");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<int?>("DrawingsTablesNumber");
+
+                    b.Property<DateTime?>("EndTime");
+
+                    b.Property<bool>("ExatraBool2");
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<DateTime?>("ExtraDateTime2");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<double?>("ExtraDouble2");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<int?>("ExtraInt2");
+
+                    b.Property<int?>("ExtraInt3");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
+                    b.Property<string>("ExtraString3");
+
+                    b.Property<string>("ExtraString4");
+
+                    b.Property<bool>("FeedbackAvailability");
 
                     b.Property<string>("Fname");
 
+                    b.Property<string>("GroupNumber");
+
                     b.Property<string>("Iin");
+
+                    b.Property<string>("IndividualCypher");
 
                     b.Property<string>("LevelOfPreparation");
 
@@ -234,13 +284,17 @@ namespace Phd.Migrations
 
                     b.Property<string>("Mname");
 
+                    b.Property<bool>("ProjectAvailability");
+
                     b.Property<string>("ProtocolNumber");
+
+                    b.Property<bool>("ReviewAvailability");
 
                     b.Property<string>("ReviewerAcademicDegree");
 
                     b.Property<string>("ReviewerFname");
 
-                    b.Property<int>("ReviewerGrade");
+                    b.Property<int?>("ReviewerGrade");
 
                     b.Property<string>("ReviewerLname");
 
@@ -252,9 +306,13 @@ namespace Phd.Migrations
 
                     b.Property<string>("ReviewerWorkPlace");
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<DateTime?>("StartTime");
+
+                    b.Property<string>("StatementNumber");
 
                     b.Property<string>("StudyYear");
+
+                    b.Property<string>("SummarizedSheetNumber");
 
                     b.Property<string>("SupervisorAcademicDegree");
 
@@ -272,13 +330,15 @@ namespace Phd.Migrations
 
                     b.Property<string>("SupervisorWorkPlace");
 
-                    b.Property<int>("ThesisPagesNumber");
+                    b.Property<int?>("ThesisPagesNumber");
 
                     b.Property<string>("ThesisTopicEng");
 
                     b.Property<string>("ThesisTopicKaz");
 
                     b.Property<string>("ThesisTopicRus");
+
+                    b.Property<int?>("TimeForQuestions");
 
                     b.Property<string>("TypeOfStateAttestation");
 
@@ -298,6 +358,20 @@ namespace Phd.Migrations
                     b.Property<int>("BRStudentId");
 
                     b.Property<string>("Description");
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<string>("Name");
 
@@ -319,6 +393,20 @@ namespace Phd.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BRStudentId");
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<string>("Opinion");
 
@@ -345,6 +433,20 @@ namespace Phd.Migrations
 
                     b.Property<int>("BMajorId");
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Type");
@@ -361,6 +463,20 @@ namespace Phd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<string>("ValueEng");
 
@@ -379,6 +495,20 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<string>("ValueEng");
 
                     b.Property<string>("ValueKaz");
@@ -395,6 +525,20 @@ namespace Phd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<string>("ValueEng");
 
@@ -413,6 +557,20 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<string>("Value");
 
                     b.HasKey("Id");
@@ -426,6 +584,20 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -438,6 +610,20 @@ namespace Phd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<string>("Name");
 
@@ -518,6 +704,20 @@ namespace Phd.Migrations
                     b.Property<string>("Activity");
 
                     b.Property<string>("Description");
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<DateTime>("TimeStamp");
 

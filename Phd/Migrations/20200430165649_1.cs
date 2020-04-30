@@ -30,7 +30,14 @@ namespace Phd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ValueRus = table.Column<string>(nullable: true),
                     ValueKaz = table.Column<string>(nullable: true),
-                    ValueEng = table.Column<string>(nullable: true)
+                    ValueEng = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,7 +52,14 @@ namespace Phd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ValueRus = table.Column<string>(nullable: true),
                     ValueKaz = table.Column<string>(nullable: true),
-                    ValueEng = table.Column<string>(nullable: true)
+                    ValueEng = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +74,14 @@ namespace Phd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ValueRus = table.Column<string>(nullable: true),
                     ValueKaz = table.Column<string>(nullable: true),
-                    ValueEng = table.Column<string>(nullable: true)
+                    ValueEng = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +94,14 @@ namespace Phd.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +114,14 @@ namespace Phd.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +134,14 @@ namespace Phd.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +157,14 @@ namespace Phd.Migrations
                     UserName = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
                     Activity = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: false),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,7 +245,14 @@ namespace Phd.Migrations
                     NameRus = table.Column<string>(nullable: true),
                     NameKaz = table.Column<string>(nullable: true),
                     NameEng = table.Column<string>(nullable: true),
-                    AcademicDepartmentId = table.Column<int>(nullable: false)
+                    AcademicDepartmentId = table.Column<int>(nullable: false),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -253,6 +309,13 @@ namespace Phd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false),
                     BMajorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -364,8 +427,31 @@ namespace Phd.Migrations
                     ThesisTopicRus = table.Column<string>(nullable: true),
                     ThesisTopicKaz = table.Column<string>(nullable: true),
                     ThesisTopicEng = table.Column<string>(nullable: true),
-                    ThesisPagesNumber = table.Column<int>(nullable: false),
-                    DrawingsTablesNumber = table.Column<int>(nullable: false),
+                    ThesisPagesNumber = table.Column<int>(nullable: true),
+                    DrawingsTablesNumber = table.Column<int>(nullable: true),
+                    GroupNumber = table.Column<string>(nullable: true),
+                    IndividualCypher = table.Column<string>(nullable: true),
+                    TimeForQuestions = table.Column<int>(nullable: true),
+                    SummarizedSheetNumber = table.Column<string>(nullable: true),
+                    StatementNumber = table.Column<string>(nullable: true),
+                    ProjectAvailability = table.Column<bool>(nullable: false),
+                    DrawingsTablesAvailability = table.Column<bool>(nullable: false),
+                    ReviewAvailability = table.Column<bool>(nullable: false),
+                    FeedbackAvailability = table.Column<bool>(nullable: false),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraString3 = table.Column<string>(nullable: true),
+                    ExtraString4 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraInt2 = table.Column<int>(nullable: true),
+                    ExtraInt3 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtraDouble2 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraDateTime2 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExatraBool2 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false),
                     SupervisorFname = table.Column<string>(nullable: true),
                     SupervisorMname = table.Column<string>(nullable: true),
                     SupervisorLname = table.Column<string>(nullable: true),
@@ -373,14 +459,14 @@ namespace Phd.Migrations
                     SupervisorPosition = table.Column<string>(nullable: true),
                     SupervisorAcademicDegree = table.Column<string>(nullable: true),
                     SupervisorReviewAvailability = table.Column<string>(nullable: true),
-                    SupervisorConlusion = table.Column<string>(nullable: true),
+                    SupervisorConclusion = table.Column<string>(nullable: true),
                     ReviewerFname = table.Column<string>(nullable: true),
                     ReviewerMname = table.Column<string>(nullable: true),
                     ReviewerLname = table.Column<string>(nullable: true),
                     ReviewerWorkPlace = table.Column<string>(nullable: true),
                     ReviewerPosition = table.Column<string>(nullable: true),
                     ReviewerAcademicDegree = table.Column<string>(nullable: true),
-                    ReviewerGrade = table.Column<int>(nullable: false),
+                    ReviewerGrade = table.Column<int>(nullable: true),
                     ReviewerReviewAvailability = table.Column<string>(nullable: true),
                     ConsultantFname = table.Column<string>(nullable: true),
                     ConsultantMname = table.Column<string>(nullable: true),
@@ -389,12 +475,12 @@ namespace Phd.Migrations
                     ConsultantPosition = table.Column<string>(nullable: true),
                     ConsultantAcademicDegree = table.Column<string>(nullable: true),
                     ProtocolNumber = table.Column<string>(nullable: true),
-                    DefenceDate = table.Column<DateTime>(nullable: false),
+                    DefenceDate = table.Column<DateTime>(nullable: true),
                     TypeOfStateAttestation = table.Column<string>(nullable: true),
-                    CreditNumber = table.Column<int>(nullable: false),
+                    CreditNumber = table.Column<int>(nullable: true),
                     StudyYear = table.Column<string>(nullable: true),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: true),
+                    EndTime = table.Column<DateTime>(nullable: true),
                     AnswerCharacteristic = table.Column<string>(nullable: true),
                     LevelOfPreparation = table.Column<string>(nullable: true),
                     AbsentMemberFullName = table.Column<string>(nullable: true),
@@ -420,7 +506,14 @@ namespace Phd.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     BRStudentId = table.Column<int>(nullable: false),
-                    StudentDocTypeId = table.Column<int>(nullable: false)
+                    StudentDocTypeId = table.Column<int>(nullable: false),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -448,6 +541,13 @@ namespace Phd.Migrations
                     Value = table.Column<int>(nullable: false),
                     Opinion = table.Column<string>(nullable: true),
                     Question = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false),
                     BRStudentId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },

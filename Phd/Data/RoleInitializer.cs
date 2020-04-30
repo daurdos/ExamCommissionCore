@@ -11,7 +11,7 @@ namespace Phd.Data
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, PhdContext context)
         {
 
-            // закомментировать после первого запуска
+            // !!!!!!!!!!!!!!закомментировать после первого запуска
 
             //string adminEmail = "daurdos@gmail.com";
             //string password = "!QAZ1qaz";
@@ -19,9 +19,6 @@ namespace Phd.Data
             //{
             //    await roleManager.CreateAsync(new IdentityRole("admin"));
             //}
-
-
-            // закомментировать после первого запуска
 
             //if (await roleManager.FindByNameAsync("user") == null)
             //{

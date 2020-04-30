@@ -15,6 +15,21 @@ namespace Phd.Models
         public string Opinion { get; set; }  // добавил в соотвествии с презентацией
         public string Question { get; set; } // добавил в соотвествии с презентацией
 
+
+        // запасные поля
+        public string ExtraString1 { get; set; } // прозапас
+        public string ExtraString2 { get; set; } // прозапас
+        public int? ExtraInt1 { get; set; } // прозапас
+        public double? ExtraDouble1 { get; set; } // прозапас
+        public DateTime? ExtaDateTime1 { get; set; } // прозапас
+        public bool ExtraBool1 { get; set; } = false; // прозапас
+        public bool ExtraBool3 { get; set; } = true; // прозапас
+        // ************************
+
+
+
+
+
         // связи
         public int BRStudentId { get; set; }
         public BRStudent BRStudent { get; set; }
