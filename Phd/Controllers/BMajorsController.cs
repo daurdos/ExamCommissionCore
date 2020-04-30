@@ -738,7 +738,9 @@ namespace Phd.Controllers
                 DrawTablesNumber = student.DrawingsTablesNumber,
                 GeneralCharacteristic = student.AnswerCharacteristic,
                 KnowledgeLevel = student.LevelOfPreparation,
-                GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value))
+                GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value)),
+                ReviewerGrade = student.ReviewerGrade,
+                MinutesNumber = student.Id
 
 
 
@@ -1073,6 +1075,126 @@ namespace Phd.Controllers
 
             return View(model);
         }
+
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentRusStatementAsync(int studentId)
+        {
+
+            //НЕ УДАЛЯТЬ!!!!
+            // рабочий синхронный код для вытаскивания шифра специальности
+
+            //var bRStudentList = Context.BRStudent.ToList();
+            //var bRStudent = bRStudentList.Where(x => x.Id == studentId).FirstOrDefault();
+
+            //var bRGroupList = Context.BRStudentGroup.ToList();
+            //var bRGroup = bRGroupList.Where(x => x.Id == bRStudent.BRStudentGroupId).FirstOrDefault();
+
+
+            //var majorList = Context.BMajor.ToList();
+            //var studentMajor = majorList.Where(x => x.Id == bRGroup.BMajorId).FirstOrDefault();
+
+            // конец рабочий синхронный код для вытаскивания шифра специальности
+
+
+
+            //  рабочий асинхронный код для вытаскивания шифра специальности
+            var bRStudentAsync = await Context.BRStudent
+                                              .Where(x => x.Id == studentId)
+                                              .FirstOrDefaultAsync();
+
+            var bRGroupAsync = await Context.BRStudentGroup
+                                            .Where(x => x.Id == bRStudentAsync.BRStudentGroupId)
+                                            .FirstOrDefaultAsync();
+
+            var studentMajorAsync = await Context.BMajor
+                                                 .Where(x => x.Id == bRGroupAsync.BMajorId)
+                                                 .FirstOrDefaultAsync();
+            // конец рабочий асинхронный код для вытаскивания шифра специальности            
+
+            var student = await Context.BRStudent.Include(x => x.BRStudentGrade)
+                                           .FirstOrDefaultAsync(x => x.Id == studentId);
+
+            var grades = await Context.BRStudentGrade.Include(x => x.User)
+                                                .Where(x => x.BRStudentId == studentId)
+                                                .ToListAsync();
+
+            List<User> usersFromGradesList = new List<User>();
+            foreach (var g in grades)
+            {
+                usersFromGradesList.Add(new User
+                {
+                    Id = g.User.Id,
+                    UserName = g.User.UserName,
+                    NormalizedUserName = g.User.NormalizedUserName,
+                    Email = g.User.Email,
+                    EmailConfirmed = g.User.EmailConfirmed,
+                    PasswordHash = g.User.PasswordHash,
+                    SecurityStamp = g.User.SecurityStamp,
+                    ConcurrencyStamp = g.User.ConcurrencyStamp,
+                    PhoneNumber = g.User.PhoneNumber,
+                    PhoneNumberConfirmed = g.User.PhoneNumberConfirmed,
+                    TwoFactorEnabled = g.User.TwoFactorEnabled,
+                    LockoutEnd = g.User.LockoutEnd,
+                    LockoutEnabled = g.User.LockoutEnabled,
+                    AccessFailedCount = g.User.AccessFailedCount,
+                    LastName = g.User.LastName,
+                    FirstName = g.User.FirstName,
+                    MiddleName = g.User.MiddleName,
+                    UName = g.User.UName,
+                    BMajorId = g.User.BMajorId
+                });
+            }
+
+            //////////// вывод ролей пользователя
+
+            var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
+            var roles = await Context.Roles.ToListAsync(); // берем все имеющиеся роли
+            var userRoles = await Context.UserRoles.ToListAsync(); // берем все связи пользователей и ролей
+
+            var userWithRolesList = new List<UserWithRoles>(users.Count);
+            foreach (var user in usersFromGradesList)
+            {
+                // НЕ УДАЛЯТЬ !!! синхронная реализация
+                //var roleIds = userRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).ToList(); // список Id ролей которые прикреплены к определенному пользователю
+                // НЕ УДАЛЯТЬ!!! синхронная реализация
+                //var currentUserRoles = roles.Where(x => roleIds.Contains(x.Id)).Select(x => x.Name).ToList();
+
+                //оптимизированный асинхронный метод
+                var roleIds = await Context.UserRoles
+                                           .Where(x => x.UserId == user.Id)
+                                           .Select(x => x.RoleId)
+                                           .ToListAsync(); //оптимизированный асинхронный метод
+
+                //оптимизированный асинхронный метод
+                var currentUserRoles = await Context.Roles
+                                                    .Where(x => roleIds
+                                                    .Contains(x.Id)).Select(x => x.Name)
+                                                    .ToListAsync(); // оптимизированный асинхронный метод
+
+                userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+            }
+
+            StudentGradeViewModel model = new StudentGradeViewModel
+            {
+                StudentLName = student.Lname,
+                StudentFName = student.Fname,
+                StudentMName = student.Mname,
+                StudentThesisName = student.ThesisTopicRus,
+                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                Users = users,
+                Grades = grades,
+                UserWithRoles = userWithRolesList,
+                MajorCypher = studentMajorAsync.Cypher.ToString()
+            };
+
+            return View(model);
+        }
+
 
 
 

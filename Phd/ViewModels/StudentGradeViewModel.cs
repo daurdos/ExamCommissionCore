@@ -29,6 +29,8 @@ namespace Phd.ViewModels
         public string GeneralCharacteristic { get; set; }
         public string KnowledgeLevel { get; set; }
         public string GradeLetter { get; set; }
+        public int ReviewerGrade { get; set; }
+        public int MinutesNumber { get; set; }
         public List<User> Users { get; set; }
         public List<BRStudentGrade> Grades { get; set; }
         public List<UserWithRoles> UserWithRoles { get; set; }
