@@ -1,14 +1,89 @@
 ﻿@model IEnumerable<Phd.Models.User>
 
 <h2>Список пользователей</h2>
-<table class="table">
-    @foreach (var user in Model)
-    {
+<table class="demotable">
+    <thead>
         <tr>
-            <td>@user.Email</td>
             <td>
-                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                <strong align="center"> №</strong>
+            </td>
+            <td>
+                <strong align="center"> Email</strong>
+            </td>
+            <td>
+                <strong align="center"> Уникальное имя</strong>
+            </td>
+            <td>
+                <strong align="center"> Фамилия </strong>
+            </td>
+            <td>
+                <strong align="center"> Имя </strong>
+            </td>
+            <td>
+                <strong align="center"> Отчество </strong>
             </td>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@user.LastName</td>
+                <td>@user.FirstName</td>
+                <td>@user.MiddleName</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    
 </table>
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik;
+    }
+
+        .demotable tbody tr {
+            counter-increment: schetchik; /* сосчитать только tr в tbody */
+        }
+
+            .demotable td,
+            .demotable tbody tr:before {
+                padding: .1em .5em;
+                border: 1px solid #ffffff;
+            }
+
+            .demotable tbody tr:before {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .demotable tbody tr:before,
+            .demotable b:after {
+                content: counter(schetchik);
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>

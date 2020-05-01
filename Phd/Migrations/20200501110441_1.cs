@@ -129,6 +129,31 @@ namespace Phd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GradesTable",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AvegrageGrade = table.Column<double>(nullable: true),
+                    Gpa = table.Column<double>(nullable: true),
+                    LetterGrade = table.Column<string>(nullable: true),
+                    TraditionalGradeRus = table.Column<string>(nullable: true),
+                    TraditionalGradeKaz = table.Column<string>(nullable: true),
+                    TraditionalGradeEng = table.Column<string>(nullable: true),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GradesTable", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StudentDocType",
                 columns: table => new
                 {
@@ -198,7 +223,9 @@ namespace Phd.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    NameRus = table.Column<string>(nullable: true),
+                    NameKaz = table.Column<string>(nullable: true),
+                    NameEng = table.Column<string>(nullable: true),
                     FacultyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -245,6 +272,11 @@ namespace Phd.Migrations
                     NameRus = table.Column<string>(nullable: true),
                     NameKaz = table.Column<string>(nullable: true),
                     NameEng = table.Column<string>(nullable: true),
+                    StatementNumber = table.Column<string>(nullable: true),
+                    AttestationTypeRus = table.Column<string>(nullable: true),
+                    AttestationTypeKaz = table.Column<string>(nullable: true),
+                    Credits = table.Column<int>(nullable: true),
+                    StudyYear = table.Column<string>(nullable: true),
                     AcademicDepartmentId = table.Column<int>(nullable: false),
                     ExtraString1 = table.Column<string>(nullable: true),
                     ExtraString2 = table.Column<string>(nullable: true),
@@ -438,6 +470,12 @@ namespace Phd.Migrations
                     DrawingsTablesAvailability = table.Column<bool>(nullable: false),
                     ReviewAvailability = table.Column<bool>(nullable: false),
                     FeedbackAvailability = table.Column<bool>(nullable: false),
+                    AvegrageGrade = table.Column<double>(nullable: true),
+                    Gpa = table.Column<double>(nullable: true),
+                    LetterGrade = table.Column<string>(nullable: true),
+                    TraditionalGradeRus = table.Column<string>(nullable: true),
+                    TraditionalGradeKaz = table.Column<string>(nullable: true),
+                    TraditionalGradeEng = table.Column<string>(nullable: true),
                     ExtraString1 = table.Column<string>(nullable: true),
                     ExtraString2 = table.Column<string>(nullable: true),
                     ExtraString3 = table.Column<string>(nullable: true),
@@ -695,6 +733,9 @@ namespace Phd.Migrations
 
             migrationBuilder.DropTable(
                 name: "DictionaryStudyYear");
+
+            migrationBuilder.DropTable(
+                name: "GradesTable");
 
             migrationBuilder.DropTable(
                 name: "UserActivitiy");

@@ -31,14 +31,24 @@
                 <input asp-for="Value" class="form-control" />
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
+            <!--
+
+                <div class="form-group">
+        <label asp-for="Opinion" class="control-label"></label>
+        <input asp-for="Opinion" class="form-control" />
+        <span asp-validation-for="Opinion" class="text-danger"></span>
+    </div>
+
+        -->
             <div class="form-group">
                 <label asp-for="Opinion" class="control-label"></label>
-                <input asp-for="Opinion" class="form-control" />
+                <textarea asp-for="Opinion" class="form-control" text-wrap:normal" type="text" placeholder="Напишите своё мнение здесь"></textarea>
                 <span asp-validation-for="Opinion" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Question" class="control-label"></label>
-                <input asp-for="Question" class="form-control" />
+                <textarea asp-for="Question" class="form-control" text-wrap:normal" type="text" placeholder="Напишите свои вопросы здесь"></textarea>
                 <span asp-validation-for="Question" class="text-danger"></span>
             </div>
             <div class="form-group">

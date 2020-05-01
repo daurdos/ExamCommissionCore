@@ -1,0 +1,160 @@
+﻿@model Phd.ViewModels.StudentGradeViewModel
+
+@{
+    ViewData["Title"] = "Сводный лист оценки";
+}
+<head>
+    <h4 align="center">Мемлекеттік қортынды аттестациялау отырысының</h4>
+    <h4 align="center">
+        БАҒАЛАУ ЖИЫНТЫҚ ПАРАҒЫ
+    </h4>
+</head>
+
+<body>
+
+    <p align="center"> кадрларды дайындау бағыты бойынша</p>
+    <p align="center"><em><u>@Html.DisplayFor(model => model.MajorCypher) - @Html.DisplayFor(model => model.MajorName)</u> </em> </p>
+
+
+
+    <p align="center">Л.Н. Гумилев атындағы ЕҰУ дипломдық жұмысты қорғауы бойынша</p>
+    <p align="center"><em> <ul> @DateTime.Now </ul> </em> </p>
+    <p align="center"> Студент:  <em> <u>@Html.DisplayFor(model => model.StudentLName) @Html.DisplayFor(model => model.StudentFName) @Html.DisplayFor(model => model.StudentMName) </u> </em>  </p>
+    <p align="center">Дипломдық жұмыстың тақырыбы:  <em> <u> @Html.DisplayFor(model => model.StudentThesisName) </u></em>  </p>
+
+    <table class="demotable" align="center">
+        <thead>
+            <tr>
+                <td>
+                    <p align="center"> № </p>
+                </td>
+                <td>
+                    <p align="center"> Комиссия мүшесінің аты-жөні </p>
+                </td>
+                <td>
+                    <p align="center"> Баға  </p>
+                </td>
+                <td>
+                    <p align="center"> Комиссия мүшесінің арнайы пікір </p>
+                </td>
+                <td>
+                    <p align="center"> Комиссия мүшесінің сұрағы </p>
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Grades)
+            {
+                <tr>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.User.LastName) @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.MiddleName)</div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.Value)%</div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.Opinion)</div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.Question) </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+
+    <h4 align="center"> Орташа баға: <strong><b><em>@Html.DisplayFor(model => model.AverageGrade) %</em></b></strong></h4>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik;
+    }
+
+        .demotable tbody tr {
+            counter-increment: schetchik; /* сосчитать только tr в tbody */
+        }
+
+            .demotable td,
+            .demotable tbody tr:before {
+                padding: .1em .5em;
+                border: 1px solid #C0C0C0;
+            }
+
+            .demotable tbody tr:before {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .demotable tbody tr:before,
+            .demotable b:after {
+                content: counter(schetchik);
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>
+

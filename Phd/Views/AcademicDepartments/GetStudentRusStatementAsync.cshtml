@@ -1,0 +1,121 @@
+﻿@model Phd.ViewModels.StudentGradeViewModel
+
+@{
+    ViewData["Title"] = "Ведомость";
+}
+<head>
+    <h4 align="center">Ведомость итоговой Государственной аттестации №____</h4>
+    <h4 align="">
+        к заседанию Государственной аттестационной комиссии
+    </h4>
+</head>
+
+<body>
+
+    <p align="center">по направлению подготовки кадров</p>
+    <p align="center"><em><u>@Html.DisplayFor(model => model.MajorCypher) - @Html.DisplayFor(model => model.MajorName)</u> </em> </p>
+
+
+    @Html.DisplayFor(model => model.AcademicDepartment)
+
+    @foreach (var item in Model.BRStudents)
+    {
+        <dd>
+            <em>
+                <u>
+                    @Html.DisplayFor(modelItem => item.Lname)
+                    @Html.DisplayFor(modelItem => item.Fname)
+                </u>
+            </em>
+        </dd>
+    }
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik;
+    }
+
+        .demotable tbody tr {
+            counter-increment: schetchik; /* сосчитать только tr в tbody */
+        }
+
+            .demotable td,
+            .demotable tbody tr:before {
+                padding: .1em .5em;
+                border: 1px solid #C0C0C0;
+            }
+
+            .demotable tbody tr:before {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .demotable tbody tr:before,
+            .demotable b:after {
+                content: counter(schetchik);
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>
+

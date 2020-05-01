@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
 using Phd.Models;
 
 namespace Phd.Models
@@ -26,6 +27,7 @@ namespace Phd.Models
         public DbSet<Phd.Models.DictionaryStatusAvailability> DictionaryStatusAvailability { get; set; }
         public DbSet<Phd.Models.DictionaryStatusConclusion> DictionaryStatusConclusion { get; set; }
         public DbSet<Phd.Models.DictionaryStudyYear> DictionaryStudyYear { get; set; }
+        public DbSet<Phd.Models.GradesTable> GradesTable { get; set; }
 
         /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

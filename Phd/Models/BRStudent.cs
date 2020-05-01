@@ -32,6 +32,16 @@ namespace Phd.Models
         public bool FeedbackAvailability { get; set; } = false; // добавил после выявления необходимости на всякий случай 
 
 
+        public double? AvegrageGrade { get; set; }
+        public double? Gpa { get; set; }
+        public string LetterGrade { get; set; }
+        public string TraditionalGradeRus { get; set; }
+        public string TraditionalGradeKaz { get; set; }
+        public string TraditionalGradeEng { get; set; }
+
+
+
+
 
         // запасные поля
 
@@ -109,6 +119,20 @@ namespace Phd.Models
         public ICollection<BRStudentGrade> BRStudentGrade { get; set; }
         public ICollection<BRStudentDoc> BRStudentDoc { get; set; }
         // ***
+
+
+            // constructor
+        public BRStudent()
+        {
+            AvegrageGrade = 0.00;
+            Gpa = 0;
+            LetterGrade = "Not specified";
+            TraditionalGradeRus = "Оценки не высталены";
+            TraditionalGradeKaz = "Бага койылмаган";
+            TraditionalGradeEng = "Grades not specified";
+            
+        }
+
 
 
 

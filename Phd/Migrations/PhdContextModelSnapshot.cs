@@ -137,7 +137,11 @@ namespace Phd.Migrations
 
                     b.Property<int>("FacultyId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("NameEng");
+
+                    b.Property<string>("NameKaz");
+
+                    b.Property<string>("NameRus");
 
                     b.HasKey("Id");
 
@@ -177,6 +181,12 @@ namespace Phd.Migrations
 
                     b.Property<int>("AcademicDepartmentId");
 
+                    b.Property<string>("AttestationTypeKaz");
+
+                    b.Property<string>("AttestationTypeRus");
+
+                    b.Property<int?>("Credits");
+
                     b.Property<string>("Cypher");
 
                     b.Property<DateTime?>("ExtaDateTime1");
@@ -199,6 +209,10 @@ namespace Phd.Migrations
 
                     b.Property<string>("NameRus");
 
+                    b.Property<string>("StatementNumber");
+
+                    b.Property<string>("StudyYear");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AcademicDepartmentId");
@@ -215,6 +229,8 @@ namespace Phd.Migrations
                     b.Property<string>("AbsentMemberFullName");
 
                     b.Property<string>("AnswerCharacteristic");
+
+                    b.Property<double?>("AvegrageGrade");
 
                     b.Property<int>("BRStudentGroupId");
 
@@ -272,11 +288,15 @@ namespace Phd.Migrations
 
                     b.Property<string>("Fname");
 
+                    b.Property<double?>("Gpa");
+
                     b.Property<string>("GroupNumber");
 
                     b.Property<string>("Iin");
 
                     b.Property<string>("IndividualCypher");
+
+                    b.Property<string>("LetterGrade");
 
                     b.Property<string>("LevelOfPreparation");
 
@@ -339,6 +359,12 @@ namespace Phd.Migrations
                     b.Property<string>("ThesisTopicRus");
 
                     b.Property<int?>("TimeForQuestions");
+
+                    b.Property<string>("TraditionalGradeEng");
+
+                    b.Property<string>("TraditionalGradeKaz");
+
+                    b.Property<string>("TraditionalGradeRus");
 
                     b.Property<string>("TypeOfStateAttestation");
 
@@ -603,6 +629,43 @@ namespace Phd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Faculty");
+                });
+
+            modelBuilder.Entity("Phd.Models.GradesTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double?>("AvegrageGrade");
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
+                    b.Property<double?>("Gpa");
+
+                    b.Property<string>("LetterGrade");
+
+                    b.Property<string>("TraditionalGradeEng");
+
+                    b.Property<string>("TraditionalGradeKaz");
+
+                    b.Property<string>("TraditionalGradeRus");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GradesTable");
                 });
 
             modelBuilder.Entity("Phd.Models.StudentDocType", b =>

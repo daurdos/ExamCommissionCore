@@ -1,48 +1,286 @@
 ﻿@model Phd.ViewModels.StudentGradeViewModel
 
 @{
-    ViewData["Title"] = "Получить результаты";
+    ViewData["Title"] = "Протокол каз.яз.";
 }
+    <head>
+        <h4 align="center">Мемлекеттік аттестаттау комиссиясы отырысының</h4>
+        <h4 align="center">ХАТТАМАСЫ № <em><u>@Html.DisplayFor(model => model.ProtocolNumber)</u></em></h4>
 
-<h2>Общая оценка</h2>
-
-@{ var aver = Model.AverageGrade;}
-
-
-
-
-
-<div><strong><b><em>@Html.DisplayFor(model => model.AverageGrade) %</em></b></strong></div>
-
-<div><strong><b><em>@Html.DisplayFor(model => model.StudentLName) </em></b></strong></div>
-<div><strong><b><em>@Html.DisplayFor(model => model.MajorCypher) </em></b></strong></div>
+        <h5 align="center">от <em> @DateTime.Now</em> </h5>
+    </head>
 
 
-
-@foreach (var item in Model.Users)
-{
-    <p>@Html.DisplayFor(modelItem => item.LastName)</p>
-}
-
-
-
-Имена тех кто стаvил оценки:
-<p> </p>
-
-@foreach (var item in Model.Grades)
-{
-    <p>@Html.DisplayFor(modelItem => item.User.LastName)</p>
-    <p>@Html.DisplayFor(modelItem => item.Value)</p>
-}
-
-
- USERS  WITH ROLES Кто ставил оценки
-<p> </p>
-@foreach (var item in Model.UserWithRoles)
-{
-    <p>@Html.DisplayFor(modelItem => item.UserName) Пользователь </p>
-    <p>@Html.DisplayFor(modelItem => item.Roles) Роль </p>
-}
+<body>
+    <p align="justify">
+        Студенттің
+        <br />
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.StudentLName)
+                @Html.DisplayFor(model => model.StudentFName)
+                @Html.DisplayFor(model => model.StudentMName),
+                @Html.DisplayFor(model => model.MajorCypher) -
+                @Html.DisplayFor(model => model.MajorName)
+            </u>
+        </em>
+        <br />
+        <em><u>@Html.DisplayFor(model => model.StudentThesisName)</u></em>
+        <br />
+        тақырыбында жазылған дипломдық жұмысын (жобасын) қарастыру бойынша
 
 
+    </p>
 
+    <p align="justify">
+        Қатысқандар:
+        <dl>
+            <dt>
+                Төраға:
+            </dt>
+            <dd>
+                <em><u>@Html.DisplayFor(model => model.Chairman)</u></em>
+            </dd>
+            <dt>
+                Члены
+            </dt>
+
+            @foreach (var item in Model.Grades)
+            {
+                <dd>
+                    <em>
+                        <u>
+                            @Html.DisplayFor(modelItem => item.User.LastName)
+                            @Html.DisplayFor(modelItem => item.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.User.MiddleName)
+                        </u>
+                    </em>
+                </dd>
+            }
+        </dl>
+    </p>
+
+    <p align="justify">
+        Дипломдық жұмыс (жоба)<br />
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.SupervisorLName)
+                @Html.DisplayFor(model => model.SupervisorFName)
+                @Html.DisplayFor(model => model.SupervisorMName)
+            </u>
+        </em>
+        <br />
+        ғылыми жетекшілігімен орындалды.
+        <br />
+        Рецензент
+        <br />
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.ReviewerLName)
+                @Html.DisplayFor(model => model.ReviewerFName)
+                @Html.DisplayFor(model => model.ReviewerMName)
+            </u>
+        </em>
+    </p>
+
+    <p align="justify">
+        Мемлекеттік аттестаттау комиссиясына төмендегідей материалдар ұсынылды: <br />
+        <ol>
+            <li>
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.ThesPagesNumber)
+                    </u>
+                </em>
+                бет көлемінде дипломдық жұмыстың (жобаның) мәтіні;
+
+            </li>
+            <li>
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.DrawTablesNumber)
+                    </u>
+                </em>
+                бет көлемінде дипломдық жұмыстың (жобаның) сызбалары, кестелері;
+            </li>
+            <li>
+                дипломдық жұмыстың (жобаны) ғылыми жетекшісінің пікірі
+            </li>
+            <li>
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.ReviewerGrade)
+                    </u>
+                </em>
+                бағасы қойылған дипломдық жұмыстың (жобаның) рецензиясы.
+            </li>
+        </ol>
+
+
+    <p align="justify">
+        Дипломдық жұмыстың (жобаның) орындалғандығы туралы хабарламадан кейін 60 минут ішінде студентке төмендегідей сұрақтар қойылды:
+        <ol>
+
+            @foreach (var item in Model.Grades)
+            {
+                <li>
+                    <em>
+                        <u>
+                            @Html.DisplayFor(modelItem => item.User.LastName)
+                            @Html.DisplayFor(modelItem => item.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.User.MiddleName):
+                            @Html.DisplayFor(modelItem => item.Question)
+                        </u>
+                    </em>
+                </li>
+
+            }
+        </ol>
+    </p>
+
+    <p align="justify">
+        Студенттің қойылған сұрақтарға берген жауаптарының жалпы сипаттамасы <br />
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.GeneralCharacteristic)
+            </u>
+        </em>
+    </p>
+    <p align="left">
+        Студент
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.StudentLName)
+                @Html.DisplayFor(model => model.StudentFName)
+                @Html.DisplayFor(model => model.StudentMName)
+
+            </u>
+        </em>
+        <br />
+        дипломдық жұмысты (жобаны) қорғау барысында
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.KnowledgeLevel)
+            </u>
+        </em>
+        көрсетті.
+    </p>
+
+    <p align="left">
+        Студент дипломдық жұмысты (жобаны)
+        <em>
+            <u>
+                @Html.DisplayFor(model => model.GradeLetter)
+            </u>
+        </em>
+        бағасымен орындады және қорғады
+    </p>
+
+
+
+    <p align="justify">
+        Комиссия мүшелерінің ерекше пікірлері: 
+        <ol>
+
+            @foreach (var item in Model.Grades)
+            {
+                <li>
+                    <em>
+                        <u>
+                            @Html.DisplayFor(modelItem => item.User.LastName)
+                            @Html.DisplayFor(modelItem => item.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.User.MiddleName):
+                            @Html.DisplayFor(modelItem => item.Opinion)
+                        </u>
+                    </em>
+                </li>
+
+            }
+        </ol>
+    </p>
+
+
+    <p align="justify">
+        <dl>
+            <dt>
+                Мемлекеттік емтихан комиссиясының төрағасы:
+            </dt>
+            <dd>
+                _____________&nbsp;&nbsp;
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.Chairman)
+                    </u>
+                </em>
+            </dd>
+            <dt>
+                Комиссия  мүшелері:
+            </dt>
+
+            @foreach (var item in Model.Grades)
+            {
+                <dd>
+                    _____________&nbsp;&nbsp;
+                    <em>
+                        <u>
+                            @Html.DisplayFor(modelItem => item.User.LastName)
+                            @Html.DisplayFor(modelItem => item.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.User.MiddleName)
+                        </u>
+                    </em>
+                </dd>
+            }
+        <dt>
+            Хатшы:
+        </dt>
+            <dd>
+                _____________&nbsp;&nbsp;
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.Secretary)
+                    </u>
+                </em>
+            </dd>
+        </dl>
+    </p>
+
+
+</body>
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik; /* счётчик с названием "schetchik" работает в рамках класса .demotable */
+    }
+
+        .demotable tr {
+            counter-increment: schetchik; /* при встрече тега tr счётчик с названием "schetchik" увеличивается на единицу */
+        }
+
+            .demotable td,
+            .demotable tr:before {
+                padding: .1em .5em;
+                border: 1px solid #E7D5C0;
+            }
+
+            .demotable tr:before {
+                content: counter(schetchik); /* значение счётчика с названием "schetchik" записывается в первую клетку строки */
+                display: table-cell;
+                vertical-align: middle;
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>

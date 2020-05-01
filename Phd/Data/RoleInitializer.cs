@@ -37,7 +37,7 @@ namespace Phd.Data
             // добавляю инициализацию кафедр
             if (!context.AcademicDepartment.Any())
             {
-                context.AcademicDepartment.Add(new AcademicDepartment { Name = "Initial AcademicDepartment", FacultyId = 1 });
+                context.AcademicDepartment.Add(new AcademicDepartment { NameRus = "Initial AcademicDepartment", FacultyId = 1 });
                 context.SaveChanges();
             }
 

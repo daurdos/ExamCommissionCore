@@ -11,8 +11,11 @@ namespace Phd.Models
         public int Id { get; set; }
         
         [Display(Name = "Название")]
-        public string Name { get; set; }
-        
+        public string NameRus { get; set; }
+        public string NameKaz { get; set; }
+        public string NameEng { get; set; }
+
+
         [Display(Name = "Факультет")]
         public int FacultyId { get; set; }
 

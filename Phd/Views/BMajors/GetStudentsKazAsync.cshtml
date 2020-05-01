@@ -24,8 +24,10 @@
                 </td>
                 <td>
 
-                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeEngAsync" asp-route-studentId="@item.Id">Результаты</a>
+                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Бага кою </a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeKazAsync" asp-route-studentId="@item.Id">Протокол</a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetStudentKazSummarizedSheetAsync" asp-route-studentId="@item.Id">Жиынтық парақ</a>
+
                 </td>
             </tr>
         }

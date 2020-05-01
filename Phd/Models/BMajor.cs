@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,6 +22,14 @@ namespace Phd.Models
 
         [Display(Name = "Название на англ.яз.")]
         public string NameEng { get; set; }
+
+        public string StatementNumber { get; set; }
+        public string AttestationTypeRus { get; set; }
+        public string AttestationTypeKaz { get; set; }
+        public int? Credits { get; set; }
+        public string StudyYear { get; set; }
+
+
 
         [Display(Name = "Кафедра")]
         public int AcademicDepartmentId { get; set; }

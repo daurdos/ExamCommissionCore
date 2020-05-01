@@ -48,6 +48,7 @@ namespace Phd.ViewModels
 
 
         public List<BRStudent> BRStudents { get; set; }
+        public List<User> UsersFromMajorList { get; set; } 
 
 
         public List<User> Users { get; set; }
