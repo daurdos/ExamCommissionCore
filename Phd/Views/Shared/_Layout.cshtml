@@ -58,7 +58,7 @@
                         {
                             <li><a asp-area="" asp-controller="BRExamCommissions" asp-action="Index">Комиссии</a></li>
                         }
-                        
+
                         <li><a asp-area="" asp-controller="Home" asp-action="About">О системе</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="LogOff" asp-method="post">Выход</a></li>
@@ -68,12 +68,8 @@
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Домой</a></li>
 
-                        <!--
-        <li><a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a></li>
-        -->
-
-                        <li><a asp-area="" asp-controller="Account" asp-action="RegisterModerator">Моредаторам</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Преподавателям</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register">ДАВ</a></li>
+                        <li><a asp-area="" asp-controller="AcademicDepartments" asp-action="GetAllAcademicDepartmentsAsync">ППС</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Login">Вход</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="About">О системе</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>

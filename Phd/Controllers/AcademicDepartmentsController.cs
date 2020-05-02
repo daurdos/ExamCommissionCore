@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Phd.Models;
+using Phd.ViewModels;
 
 namespace Phd.Controllers
 {
@@ -21,12 +22,14 @@ namespace Phd.Controllers
         // GET: AcademicDepartments
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.AcademicDepartment.ToListAsync());
         }
 
         public async Task<IActionResult> GetAllAcademicDepartmentsAsync()
         {
-            return View(await _context.AcademicDepartment.Where(x=>x.Id!=1).GroupBy(x=>x.FacultyId).ToListAsync());
+            var allDepsListWithFacsAsync = await _context.AcademicDepartment.Include(x => x.Faculty).ToListAsync();
+            return View(allDepsListWithFacsAsync.Where(x=>x.Id!=1));
         }
 
         // GET: AcademicDepartments/Details/5

@@ -4,12 +4,12 @@
     ViewData["Title"] = "Регистрация ДАВ";
 }
 
-<h2>Регистрация ДАВ</h2>
+<h2>Регистрация ППС</h2>
 
 <table class="table">
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Register">
+            <form asp-action="RegisterByAcadDep">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <tr>
                     <th>
@@ -50,7 +50,10 @@
                         </div>
                     </th>
                     <th>
-                        <input type="hidden" value="1" asp-for="BMajorId" />
+                        <div class="form-group">
+                            <label asp-for="BMajorId" class="control-label"></label>
+                            <select asp-for="BMajorId" class="form-control" asp-items="ViewBag.BMajorId"></select>
+                        </div>
                     </th>
                 </tr>
                 <tr>
@@ -81,20 +84,21 @@
 </table>
 
 
+            
+           
+            
+            
+            
+            
+            
+            
+
+
+            
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

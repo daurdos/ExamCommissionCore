@@ -76,21 +76,19 @@ namespace Phd.Controllers
                     }
                 }
             }
-
             return View(model);
         }
 
 
         [HttpGet]
-        public IActionResult RegisterModerator(int depId)
+        public async Task<IActionResult> RegisterByAcadDep(int depId)
         {
-
             ViewData["BMajorId"] = new SelectList(_context.BMajor.Where(x=>x.AcademicDepartmentId == depId), "Id", "NameRus");
             return View();
         }
 
 
-        public async Task<IActionResult> RegisterModerator(RegisterViewModel model)
+        public async Task<IActionResult> RegisterByAcadDep(RegisterViewModel model)
         {
 
             if (ModelState.IsValid)

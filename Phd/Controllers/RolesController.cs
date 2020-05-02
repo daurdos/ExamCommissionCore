@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Phd.Models;
 using Phd.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace Phd.Controllers
 {
@@ -21,7 +23,12 @@ namespace Phd.Controllers
         }
 
         //[Authorize(Roles = "admin, moderator")]
-        public IActionResult Index() => View(_roleManager.Roles.ToList());
+        public IActionResult Index()
+        {
+            var allRoles = _roleManager.Roles.ToList().Where(x=>x.Name != "admin" && x.Name!="user").OrderBy(x=>x.Name);
+            return View(allRoles);
+        }
+           
 
        // [Authorize(Roles = "admin")]
         public IActionResult Create() => View();
@@ -64,7 +71,12 @@ namespace Phd.Controllers
         }
 
         //[Authorize(Roles = "admin, moderator, Ученый секретарь")]
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public IActionResult UserList()
+        {
+            var userList = _userManager.Users.Include(x => x.BMajor).Where(x=>x.UserName!="SuperAdmin").ToList();
+            return View(userList);
+        }
+              
 
       //  [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Edit(string userId)
@@ -75,12 +87,13 @@ namespace Phd.Controllers
             {
                 // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
-                 var allRoles = _roleManager.Roles.ToList();
+                 var allRoles = _roleManager.Roles.Where(x => x.Name != "admin" && x.Name != "user").OrderBy(x => x.Name).ToList();
 
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
-                    UserEmail = user.Email,
+                    //UserEmail = user.Email, // привязываю на UserName, после того как убрал уникальность email
+                    UserName = user.UserName,
                     UserRoles = userRoles,
                     AllRoles = allRoles
                 };

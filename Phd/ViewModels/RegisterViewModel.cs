@@ -50,7 +50,7 @@ namespace Phd.ViewModels
         public int BMajorId { get; set; }
 
 
-
+        [Display(Name = "Уникальное имя пользователя")]
         public string UName { get; set; }
 
 

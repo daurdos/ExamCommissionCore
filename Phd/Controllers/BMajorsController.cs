@@ -28,11 +28,19 @@ namespace Phd.Controllers
 
             if (IsAdmin())
             {
-                return View(await phdContext.ToListAsync());
+                return View(await phdContext.Where(x=>x.Id!=1).OrderBy(x => x.AcademicDepartmentId).ToListAsync());
+            }
+            else if (HttpContext.User.IsInRole("Администратор"))
+            {
+                return View(await phdContext.Where(x => x.Id != 1).OrderBy(x => x.AcademicDepartmentId).ToListAsync());
+            }
+            else if (HttpContext.User.IsInRole("Сотрудник"))
+            {
+                return View(await phdContext.Where(x => x.Id != 1).OrderBy(x=>x.AcademicDepartmentId).ToListAsync());
             }
             else
             {
-                return View(await phdContext.Where(x => x.Id == GetUser().BMajorId).ToListAsync());
+                return View(await phdContext.Where(x => x.Id == GetUser().BMajorId && x.Id != 1).ToListAsync());
             }
 
         }
@@ -59,7 +67,7 @@ namespace Phd.Controllers
         // GET: BMajors/Create
         public IActionResult Create()
         {
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus");
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment.Where(x=>x.Id!=1), "Id", "NameRus");
             return View();
         }
 
@@ -93,7 +101,7 @@ namespace Phd.Controllers
             {
                 return NotFound();
             }
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment.Where(x=>x.Id!=1), "Id", "NameRus", bMajor.AcademicDepartmentId);
             return View(bMajor);
         }
 
