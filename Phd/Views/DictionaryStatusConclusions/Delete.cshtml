@@ -1,4 +1,4 @@
-﻿@model Phd.Models.AcademicDepartment
+﻿@model Phd.Models.DictionaryStatusConclusion
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,26 +8,26 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AcademicDepartment</h4>
+    <h4>DictionaryStatusConclusion</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NameRus)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.NameKaz)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.NameEng)
+            @Html.DisplayNameFor(model => model.ValueRus)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NameRus)
+            @Html.DisplayFor(model => model.ValueRus)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueKaz)
+        </dt>
         <dd>
-            @Html.DisplayFor(model => model.NameKaz)
+            @Html.DisplayFor(model => model.ValueKaz)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueEng)
+        </dt>
         <dd>
-            @Html.DisplayFor(model => model.NameEng)
+            @Html.DisplayFor(model => model.ValueEng)
         </dd>
     </dl>
     

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Phd.Models.AcademicDepartment>
+﻿@model IEnumerable<Phd.Models.DictionaryAcademicDegree>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NameRus)
+                @Html.DisplayNameFor(model => model.ValueRus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NameKaz)
+                @Html.DisplayNameFor(model => model.ValueKaz)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NameEng)
+                @Html.DisplayNameFor(model => model.ValueEng)
             </th>
             <th></th>
         </tr>
@@ -28,13 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NameRus)
+                @Html.DisplayFor(modelItem => item.ValueRus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NameKaz)
+                @Html.DisplayFor(modelItem => item.ValueKaz)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NameEng)
+                @Html.DisplayFor(modelItem => item.ValueEng)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

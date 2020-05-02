@@ -30,7 +30,7 @@ namespace Phd.Controllers
         public IActionResult Register()
         {
 
-            ViewData["BMajorId"] = new SelectList(_context.BMajor, "Id", "Cypher");
+            ViewData["BMajorId"] = new SelectList(_context.BMajor, "Id", "NameRus");
             return View();
         }
 
@@ -82,18 +82,10 @@ namespace Phd.Controllers
 
 
         [HttpGet]
-        public IActionResult RegisterModerator()
+        public IActionResult RegisterModerator(int depId)
         {
-            // модифицирую регистрацию с добавлением ГАК
-            //return View(); 
-            //
 
-            ViewData["FacultyId"] = new SelectList(_context.Faculty, "Id", "Name");
-            ViewData["AcademicDepartmentId"] = new SelectList(_context.AcademicDepartment, "Id", "Name");
-            ViewBag.BMajorId = 1;
-            ViewBag.BRExamCommissionId = 1;
-
-
+            ViewData["BMajorId"] = new SelectList(_context.BMajor.Where(x=>x.AcademicDepartmentId == depId), "Id", "NameRus");
             return View();
         }
 

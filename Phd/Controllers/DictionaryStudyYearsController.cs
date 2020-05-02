@@ -9,27 +9,22 @@ using Phd.Models;
 
 namespace Phd.Controllers
 {
-    public class AcademicDepartmentsController : Controller
+    public class DictionaryStudyYearsController : Controller
     {
         private readonly PhdContext _context;
 
-        public AcademicDepartmentsController(PhdContext context)
+        public DictionaryStudyYearsController(PhdContext context)
         {
             _context = context;
         }
 
-        // GET: AcademicDepartments
+        // GET: DictionaryStudyYears
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AcademicDepartment.ToListAsync());
+            return View(await _context.DictionaryStudyYear.ToListAsync());
         }
 
-        public async Task<IActionResult> GetAllAcademicDepartmentsAsync()
-        {
-            return View(await _context.AcademicDepartment.Where(x=>x.Id!=1).GroupBy(x=>x.FacultyId).ToListAsync());
-        }
-
-        // GET: AcademicDepartments/Details/5
+        // GET: DictionaryStudyYears/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,40 +32,39 @@ namespace Phd.Controllers
                 return NotFound();
             }
 
-            var academicDepartment = await _context.AcademicDepartment
+            var dictionaryStudyYear = await _context.DictionaryStudyYear
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (academicDepartment == null)
+            if (dictionaryStudyYear == null)
             {
                 return NotFound();
             }
 
-            return View(academicDepartment);
+            return View(dictionaryStudyYear);
         }
 
-        // GET: AcademicDepartments/Create
+        // GET: DictionaryStudyYears/Create
         public IActionResult Create()
         {
-            ViewData["FacultyId"] = new SelectList(_context.Faculty, "Id", "NameRus");
             return View();
         }
 
-        // POST: AcademicDepartments/Create
+        // POST: DictionaryStudyYears/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameRus,NameKaz,NameEng,FacultyId")] AcademicDepartment academicDepartment)
+        public async Task<IActionResult> Create([Bind("Id,Value")] DictionaryStudyYear dictionaryStudyYear)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(academicDepartment);
+                _context.Add(dictionaryStudyYear);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(academicDepartment);
+            return View(dictionaryStudyYear);
         }
 
-        // GET: AcademicDepartments/Edit/5
+        // GET: DictionaryStudyYears/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,23 +72,22 @@ namespace Phd.Controllers
                 return NotFound();
             }
 
-            var academicDepartment = await _context.AcademicDepartment.FindAsync(id);
-            if (academicDepartment == null)
+            var dictionaryStudyYear = await _context.DictionaryStudyYear.FindAsync(id);
+            if (dictionaryStudyYear == null)
             {
                 return NotFound();
             }
-            ViewData["FacultyId"] = new SelectList(_context.Faculty, "Id", "NameRus");
-            return View(academicDepartment);
+            return View(dictionaryStudyYear);
         }
 
-        // POST: AcademicDepartments/Edit/5
+        // POST: DictionaryStudyYears/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameRus,NameKaz,NameEng,FacultyId")] AcademicDepartment academicDepartment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Value")] DictionaryStudyYear dictionaryStudyYear)
         {
-            if (id != academicDepartment.Id)
+            if (id != dictionaryStudyYear.Id)
             {
                 return NotFound();
             }
@@ -103,12 +96,12 @@ namespace Phd.Controllers
             {
                 try
                 {
-                    _context.Update(academicDepartment);
+                    _context.Update(dictionaryStudyYear);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AcademicDepartmentExists(academicDepartment.Id))
+                    if (!DictionaryStudyYearExists(dictionaryStudyYear.Id))
                     {
                         return NotFound();
                     }
@@ -119,10 +112,10 @@ namespace Phd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(academicDepartment);
+            return View(dictionaryStudyYear);
         }
 
-        // GET: AcademicDepartments/Delete/5
+        // GET: DictionaryStudyYears/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,30 +123,30 @@ namespace Phd.Controllers
                 return NotFound();
             }
 
-            var academicDepartment = await _context.AcademicDepartment
+            var dictionaryStudyYear = await _context.DictionaryStudyYear
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (academicDepartment == null)
+            if (dictionaryStudyYear == null)
             {
                 return NotFound();
             }
 
-            return View(academicDepartment);
+            return View(dictionaryStudyYear);
         }
 
-        // POST: AcademicDepartments/Delete/5
+        // POST: DictionaryStudyYears/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var academicDepartment = await _context.AcademicDepartment.FindAsync(id);
-            _context.AcademicDepartment.Remove(academicDepartment);
+            var dictionaryStudyYear = await _context.DictionaryStudyYear.FindAsync(id);
+            _context.DictionaryStudyYear.Remove(dictionaryStudyYear);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AcademicDepartmentExists(int id)
+        private bool DictionaryStudyYearExists(int id)
         {
-            return _context.AcademicDepartment.Any(e => e.Id == id);
+            return _context.DictionaryStudyYear.Any(e => e.Id == id);
         }
     }
 }

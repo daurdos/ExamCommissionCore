@@ -11,7 +11,9 @@ namespace Phd.Models
         public int Id { get; set; }
 
         [Display(Name = "Название факультета")]
-        public string Name { get; set; }
+        public string NameRus { get; set; }
+        public string NameKaz { get; set; }
+        public string NameEng { get; set; }
         public ICollection<AcademicDepartment> AcademicDepartment { get; set; }
 
 

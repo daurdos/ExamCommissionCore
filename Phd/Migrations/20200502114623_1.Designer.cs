@@ -10,7 +10,7 @@ using Phd.Models;
 namespace Phd.Migrations
 {
     [DbContext(typeof(PhdContext))]
-    [Migration("20200501110441_1")]
+    [Migration("20200502114623_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,20 @@ namespace Phd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
 
                     b.Property<int>("FacultyId");
 
@@ -626,7 +640,11 @@ namespace Phd.Migrations
 
                     b.Property<string>("ExtraString2");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("NameEng");
+
+                    b.Property<string>("NameKaz");
+
+                    b.Property<string>("NameRus");
 
                     b.HasKey("Id");
 

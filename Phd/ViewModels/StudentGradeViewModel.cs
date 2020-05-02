@@ -13,7 +13,7 @@ namespace Phd.ViewModels
         public string StudentLName { get; set; }
         public string StudentMName { get; set; }
         public string StudentThesisName { get; set; }
-        public double AverageGrade { get; set; }
+        public double? AverageGrade { get; set; }
         public string MajorCypher { get; set; } 
         public string MajorName { get; set; } 
         public string Chairman { get; set; }

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Phd.Models.AcademicDepartment>
+﻿@model IEnumerable<Phd.Models.Faculty>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Список факультетов";
 }
 
-<h2>Index</h2>
+<h2>Список факультетов</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create">Создать </a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.NameEng)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id">Править</a> |
+                <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a class="btn btn-sm btn-primary" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }

@@ -135,6 +135,20 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("ExtaDateTime1");
+
+                    b.Property<bool>("ExtraBool1");
+
+                    b.Property<bool>("ExtraBool3");
+
+                    b.Property<double?>("ExtraDouble1");
+
+                    b.Property<int?>("ExtraInt1");
+
+                    b.Property<string>("ExtraString1");
+
+                    b.Property<string>("ExtraString2");
+
                     b.Property<int>("FacultyId");
 
                     b.Property<string>("NameEng");
@@ -624,7 +638,11 @@ namespace Phd.Migrations
 
                     b.Property<string>("ExtraString2");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("NameEng");
+
+                    b.Property<string>("NameKaz");
+
+                    b.Property<string>("NameRus");
 
                     b.HasKey("Id");
 

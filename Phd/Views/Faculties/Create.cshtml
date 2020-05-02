@@ -1,18 +1,17 @@
-﻿@model Phd.Models.AcademicDepartment
+﻿@model Phd.Models.Faculty
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Создать факультет";
 }
 
-<h2>Edit</h2>
+    <h2>Создать факультет</h2>
 
-<h4>AcademicDepartment</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="NameRus" class="control-label"></label>
                 <input asp-for="NameRus" class="form-control" />
@@ -29,17 +28,13 @@
                 <span asp-validation-for="NameEng" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FacultyId" class="control-label"></label>
-                <select asp-for="FacultyId" class="form-control" asp-items="ViewBag.FacultyId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-sm btn-primary" asp-action="Index">Назад к списку</a>
 </div>
 

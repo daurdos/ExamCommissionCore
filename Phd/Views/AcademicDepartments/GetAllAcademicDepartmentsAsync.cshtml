@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Phd.Models.AcademicDepartment>
+
+@{
+    ViewData["Title"] = "Выбор кафедры";
+}
+
+<h2>Выбор кафедры</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameRus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameRus)
+                </td>  
+                <td>
+                    <a asp-controller="Account" asp-action="RegisterModerator" asp-route-depId="@item.Id"> Здесь </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

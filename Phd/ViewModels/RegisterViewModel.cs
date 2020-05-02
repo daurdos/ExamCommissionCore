@@ -46,7 +46,7 @@ namespace Phd.ViewModels
 
         public string PasswordConfirm { get; set; }
 
-        [Display(Name = "Кафедра")]
+        [Display(Name = "Специальность")]
         public int BMajorId { get; set; }
 
 

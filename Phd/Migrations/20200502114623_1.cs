@@ -114,7 +114,9 @@ namespace Phd.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    NameRus = table.Column<string>(nullable: true),
+                    NameKaz = table.Column<string>(nullable: true),
+                    NameEng = table.Column<string>(nullable: true),
                     ExtraString1 = table.Column<string>(nullable: true),
                     ExtraString2 = table.Column<string>(nullable: true),
                     ExtraInt1 = table.Column<int>(nullable: true),
@@ -226,7 +228,14 @@ namespace Phd.Migrations
                     NameRus = table.Column<string>(nullable: true),
                     NameKaz = table.Column<string>(nullable: true),
                     NameEng = table.Column<string>(nullable: true),
-                    FacultyId = table.Column<int>(nullable: false)
+                    FacultyId = table.Column<int>(nullable: false),
+                    ExtraString1 = table.Column<string>(nullable: true),
+                    ExtraString2 = table.Column<string>(nullable: true),
+                    ExtraInt1 = table.Column<int>(nullable: true),
+                    ExtraDouble1 = table.Column<double>(nullable: true),
+                    ExtaDateTime1 = table.Column<DateTime>(nullable: true),
+                    ExtraBool1 = table.Column<bool>(nullable: false),
+                    ExtraBool3 = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

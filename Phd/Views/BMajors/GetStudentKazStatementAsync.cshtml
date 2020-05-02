@@ -1,0 +1,292 @@
+﻿@model Phd.ViewModels.StudentGradeViewModel
+
+@{
+    ViewData["Title"] = "Ведомос";
+}
+<head>
+    <h4 align="center">ҚОРТЫНДЫ МЕМЛЕКЕТТІК АТТЕСТАЦИЯ БОЙЫНША ВЕДОМОСІ № <em><u> @Html.DisplayFor(model => model.StatementNumber)</u></em></h4>
+
+</head>
+
+
+<body>
+    <p> Кафедра: <em><u> @Html.DisplayFor(model => model.AcademicDepartment)</u></em>  </p>
+    <p> Кезең:  <em><u> @Html.DisplayFor(model => model.StudyYear)</u></em>  </p>
+    <p>  Қортынды Мемлекеттік аттестация түрі: <em><u> @Html.DisplayFor(model => model.AttestationType)</u></em>  </p>
+    <p>  Кредиттер:  <em><u> @Html.DisplayFor(model => model.Credit)</u></em>  </p>
+
+
+
+
+
+
+    <em><u> </u></em>
+    <em><u> </u></em>
+
+
+
+
+
+
+
+
+
+
+
+
+    <table class="demotable" align="center">
+        <thead>
+            <tr>
+                <td>
+                    <p align="center"> № </p>
+                </td>
+                <td>
+                    <p align="center"> Т.А.Ә. </p>
+                </td>
+                <td>
+                    <p align="center">Топ  </p>
+                </td>
+                <td>
+                    <p align="center">Білім алушының шифрі </p>
+                </td>
+                <td>
+                    <p align="center"> Әріптік баға </p>
+                </td>
+                <td>
+                    <p align="center"> Цифрлік баға </p>
+                </td>
+                <td>
+                    <p align="center"> Пайыздағы баға </p>
+                </td>
+                <td>
+                    <p align="center"> Дәстүрлі баға </p>
+                </td>
+                <td>
+                    <p align="center"> Хаттама нөмірі </p>
+                </td>
+                <td>
+                    <p align="center"> Хатама күні </p>
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.BRStudents)
+            {
+                <tr>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.Lname) @Html.DisplayFor(modelItem => item.Fname) @Html.DisplayFor(modelItem => item.Mname)</div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.GroupNumber) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.IndividualCypher)</div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.LetterGrade) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.Gpa) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.AvegrageGrade) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.TraditionalGradeKaz) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.ProtocolNumber) </div>
+                    </td>
+                    <td>
+                        <div> @Html.DisplayFor(modelItem => item.DefenceDate) </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    <p align="justify">
+        <dl>
+            <dt>
+                Мемлекеттік аттестация комиссиясының төрағасы:
+            </dt>
+            <dd>
+                _____________&nbsp;&nbsp;
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.Chairman)
+                    </u>
+                </em>
+            </dd>
+            <dt>
+                Мүшелері:
+            </dt>
+
+            @foreach (var item in Model.UsersFromMajorList)
+            {
+                <dd>
+                    _____________&nbsp;&nbsp;
+                    <em>
+                        <u>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.MiddleName)
+                        </u>
+                    </em>
+                </dd>
+            }
+        <dt>
+            Хатшы:
+        </dt>
+            <dd>
+                _____________&nbsp;&nbsp;
+                <em>
+                    <u>
+                        @Html.DisplayFor(model => model.Secretary)
+                    </u>
+                </em>
+            </dd>
+        </dl>
+    </p>
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik;
+    }
+
+        .demotable tbody tr {
+            counter-increment: schetchik; /* сосчитать только tr в tbody */
+        }
+
+            .demotable td,
+            .demotable tbody tr:before {
+                padding: .1em .5em;
+                border: 1px solid #C0C0C0;
+            }
+
+            .demotable tbody tr:before {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .demotable tbody tr:before,
+            .demotable b:after {
+                content: counter(schetchik);
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .demotable {
+        border-collapse: collapse;
+        counter-reset: schetchik;
+    }
+
+        .demotable tbody tr {
+            counter-increment: schetchik; /* сосчитать только tr в tbody */
+        }
+
+            .demotable td,
+            .demotable tbody tr:before {
+                padding: .1em .5em;
+                border: 1px solid #C0C0C0;
+            }
+
+            .demotable tbody tr:before {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .demotable tbody tr:before,
+            .demotable b:after {
+                content: counter(schetchik);
+                color: #978777;
+            }
+
+    p {
+        text-indent: 30px; /* Отступ первой строки в пикселах */
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    dl {
+        font-size: 14pt; /* Размер шрифта в пунктах */
+    }
+
+    ol {
+        font-size: 14pt;
+    }
+</style>
+

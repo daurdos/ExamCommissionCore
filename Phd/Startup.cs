@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Phd.Data;
+using Rotativa.AspNetCore;
 
 namespace Phd
 {
@@ -84,6 +85,9 @@ namespace Phd
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
+
         }
     }
 }

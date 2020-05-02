@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Phd.Models;
 using Phd.ViewModels;
+using Rotativa.AspNetCore;
 
 namespace Phd.Controllers
 {
@@ -58,7 +59,7 @@ namespace Phd.Controllers
         // GET: BMajors/Create
         public IActionResult Create()
         {
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "Name");
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus");
             return View();
         }
 
@@ -75,7 +76,7 @@ namespace Phd.Controllers
                 await Context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "Id", bMajor.AcademicDepartmentId);
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
             return View(bMajor);
         }
 
@@ -92,7 +93,7 @@ namespace Phd.Controllers
             {
                 return NotFound();
             }
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "Id", bMajor.AcademicDepartmentId);
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
             return View(bMajor);
         }
 
@@ -128,7 +129,7 @@ namespace Phd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "Id", bMajor.AcademicDepartmentId);
+            ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
             return View(bMajor);
         }
 
@@ -605,19 +606,24 @@ namespace Phd.Controllers
                 ///***
                 ///
 
-                //var grades = await Context.BRStudentGrade.Include(x => x.User)
-                //                                                .Where(x => x.BRStudentId == id)
-                //                                                .ToListAsync();
-
-
                 int idd = bRStudentGrade.BRStudentId;
-                double average = await getAverageGrade(idd);
-                //BRStudent bRStudent = new BRStudent
-                //{
-                //    AvegrageGrade = average
-                //};
+                double average = await getAverageGradeAsync(idd);
+                
+                double gpa = await ReturnGpaAsync(average);
+                string tradRus = await ReturnGradeTraditionalRusAsync(average);
+                string tradKaz = await ReturnGradeTraditionalKazAsync(average);
+                string tradEng = await ReturnGradeTraditionalEngAsync(average);
+                string letterGrade = await ReturnGradeLetterAsync(average);
+
+
+
                 var result = Context.BRStudent.SingleOrDefault(b=>b.Id == idd);
                 result.AvegrageGrade = average;
+                result.LetterGrade = letterGrade;
+                result.TraditionalGradeRus = tradRus;
+                result.TraditionalGradeKaz = tradKaz;
+                result.TraditionalGradeEng = tradEng;
+                result.Gpa = gpa;
                 Context.SaveChanges();
 
 
@@ -628,7 +634,7 @@ namespace Phd.Controllers
 
 
         [HttpGet]
-        public async Task<double> getAverageGrade(int id)
+        public async Task<double> getAverageGradeAsync(int id)
         {
             var grades = await Context.BRStudentGrade.Where(x => x.BRStudentId == id).ToListAsync();
             double average = grades.Average(x => x.Value);
@@ -677,6 +683,8 @@ namespace Phd.Controllers
             var grades = await Context.BRStudentGrade.Include(x => x.User)
                                                 .Where(x => x.BRStudentId == studentId)
                                                 .ToListAsync();
+
+            
 
             List<User> usersFromGradesList = new List<User>();
             foreach (var g in grades)
@@ -739,45 +747,45 @@ namespace Phd.Controllers
             var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
 
 
-             
-
-            StudentGradeViewModel model = new StudentGradeViewModel
+            if(usersFromGradesList.Any(x=>x.Id != null))
             {
-                StudentLName = student.Lname,
-                StudentFName = student.Fname,
-                StudentMName = student.Mname,
-                StudentThesisName = student.ThesisTopicRus,
-                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
-                Users = users,
-                Grades = grades,
-                UserWithRoles = userWithRolesList,
-                MajorCypher = studentMajorAsync.Cypher.ToString(),
-                MajorName = studentMajorAsync.NameRus.ToString(),
-                Chairman = chairm.ToString(),
-                Secretary = chairm.ToString(),
-                SupervisorLName = student.SupervisorLname,
-                SupervisorFName = student.SupervisorFname,
-                SupervisorMName = student.SupervisorMname,
-                ReviewerLName = student.ReviewerLname,
-                ReviewerFName = student.ReviewerFname,
-                ReviewerMName = student.ReviewerMname,
-                ThesPagesNumber = student.ThesisPagesNumber,
-                DrawTablesNumber = student.DrawingsTablesNumber,
-                GeneralCharacteristic = student.AnswerCharacteristic,
-                KnowledgeLevel = student.LevelOfPreparation,
-                GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value)),
-                ReviewerGrade = student.ReviewerGrade,
-                ProtocolNumber = student.ProtocolNumber
-            };
-
-            return View(model);
+                StudentGradeViewModel model = new StudentGradeViewModel
+                {
+                    StudentLName = student.Lname,
+                    StudentFName = student.Fname,
+                    StudentMName = student.Mname,
+                    StudentThesisName = student.ThesisTopicRus,
+                    AverageGrade = student.AvegrageGrade,
+                    //Users = users,
+                    Grades = grades,
+                    UserWithRoles = userWithRolesList,
+                    MajorCypher = studentMajorAsync.Cypher.ToString(),
+                    MajorName = studentMajorAsync.NameRus.ToString(),
+                    Chairman = chairm.ToString(),
+                    Secretary = chairm.ToString(),
+                    SupervisorLName = student.SupervisorLname,
+                    SupervisorFName = student.SupervisorFname,
+                    SupervisorMName = student.SupervisorMname,
+                    ReviewerLName = student.ReviewerLname,
+                    ReviewerFName = student.ReviewerFname,
+                    ReviewerMName = student.ReviewerMname,
+                    ThesPagesNumber = student.ThesisPagesNumber,
+                    DrawTablesNumber = student.DrawingsTablesNumber,
+                    GeneralCharacteristic = student.AnswerCharacteristic,
+                    KnowledgeLevel = student.LevelOfPreparation,
+                    GradeLetter = student.LetterGrade,
+                    ReviewerGrade = student.ReviewerGrade,
+                    ProtocolNumber = student.ProtocolNumber
+                };
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction(nameof(NotSuccess));
+            }  
         }
 
 
-
-
-
-        
 
 
         [HttpGet]
@@ -883,37 +891,44 @@ namespace Phd.Controllers
 
 
 
-
-            StudentGradeViewModel model = new StudentGradeViewModel
+            if (usersFromGradesList.Any(x => x.Id != null))
             {
-                StudentLName = student.Lname,
-                StudentFName = student.Fname,
-                StudentMName = student.Mname,
-                StudentThesisName = student.ThesisTopicKaz,
-                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
-                Users = users,
-                Grades = grades,
-                UserWithRoles = userWithRolesList,
-                MajorCypher = studentMajorAsync.Cypher.ToString(),
-                MajorName = studentMajorAsync.NameRus.ToString(),
-                Chairman = chairm.ToString(),
-                Secretary = chairm.ToString(),
-                SupervisorLName = student.SupervisorLname,
-                SupervisorFName = student.SupervisorFname,
-                SupervisorMName = student.SupervisorMname,
-                ReviewerLName = student.ReviewerLname,
-                ReviewerFName = student.ReviewerFname,
-                ReviewerMName = student.ReviewerMname,
-                ThesPagesNumber = student.ThesisPagesNumber,
-                DrawTablesNumber = student.DrawingsTablesNumber,
-                GeneralCharacteristic = student.AnswerCharacteristic,
-                KnowledgeLevel = student.LevelOfPreparation,
-                GradeLetter = student.ReturnGradeLetter(student.BRStudentGrade.Average(x => x.Value)),
-                ReviewerGrade = student.ReviewerGrade,
-                ProtocolNumber = student.ProtocolNumber
-            };
+                StudentGradeViewModel model = new StudentGradeViewModel
+                {
+                    StudentLName = student.Lname,
+                    StudentFName = student.Fname,
+                    StudentMName = student.Mname,
+                    StudentThesisName = student.ThesisTopicKaz,
+                    AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                    Users = users,
+                    Grades = grades,
+                    UserWithRoles = userWithRolesList,
+                    MajorCypher = studentMajorAsync.Cypher.ToString(),
+                    MajorName = studentMajorAsync.NameRus.ToString(),
+                    Chairman = chairm.ToString(),
+                    Secretary = chairm.ToString(),
+                    SupervisorLName = student.SupervisorLname,
+                    SupervisorFName = student.SupervisorFname,
+                    SupervisorMName = student.SupervisorMname,
+                    ReviewerLName = student.ReviewerLname,
+                    ReviewerFName = student.ReviewerFname,
+                    ReviewerMName = student.ReviewerMname,
+                    ThesPagesNumber = student.ThesisPagesNumber,
+                    DrawTablesNumber = student.DrawingsTablesNumber,
+                    GeneralCharacteristic = student.AnswerCharacteristic,
+                    KnowledgeLevel = student.LevelOfPreparation,
+                    GradeLetter = student.LetterGrade,
+                    ReviewerGrade = student.ReviewerGrade,
+                    ProtocolNumber = student.ProtocolNumber
+                };
 
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction(nameof(NotSuccess));
+            }
+                
 
         }
 
@@ -1056,24 +1071,6 @@ namespace Phd.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStudentKazSummarizedSheetAsync(int studentId)
         {
-
-            //НЕ УДАЛЯТЬ!!!!
-            // рабочий синхронный код для вытаскивания шифра специальности
-
-            //var bRStudentList = Context.BRStudent.ToList();
-            //var bRStudent = bRStudentList.Where(x => x.Id == studentId).FirstOrDefault();
-
-            //var bRGroupList = Context.BRStudentGroup.ToList();
-            //var bRGroup = bRGroupList.Where(x => x.Id == bRStudent.BRStudentGroupId).FirstOrDefault();
-
-
-            //var majorList = Context.BMajor.ToList();
-            //var studentMajor = majorList.Where(x => x.Id == bRGroup.BMajorId).FirstOrDefault();
-
-            // конец рабочий синхронный код для вытаскивания шифра специальности
-
-
-
             //  рабочий асинхронный код для вытаскивания шифра специальности
             var bRStudentAsync = await Context.BRStudent
                                               .Where(x => x.Id == studentId)
@@ -1157,7 +1154,7 @@ namespace Phd.Controllers
                 StudentFName = student.Fname,
                 StudentMName = student.Mname,
                 StudentThesisName = student.ThesisTopicKaz,
-                AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                AverageGrade = student.AvegrageGrade,
                 Users = users,
                 Grades = grades,
                 UserWithRoles = userWithRolesList,
@@ -1202,8 +1199,87 @@ namespace Phd.Controllers
                                                        .Where(x => x.BMajorId == studMajorAsync.Id)
                                                        .ToListAsync(); // все пользователи определенной специальности
 
+            //////////// вывод ролей пользователя
+            var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
+            var roles = await Context.Roles.ToListAsync(); // берем все имеющиеся роли
+            var userRoles = await Context.UserRoles.ToListAsync(); // берем все связи пользователей и ролей
 
-           
+            var userWithRolesList = new List<UserWithRoles>(usersFromMajorListAsync.Count);
+            foreach (var user in usersFromMajorListAsync)
+            {
+                // НЕ УДАЛЯТЬ !!! синхронная реализация
+                //var roleIds = userRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).ToList(); // список Id ролей которые прикреплены к определенному пользователю
+                // НЕ УДАЛЯТЬ!!! синхронная реализация
+                //var currentUserRoles = roles.Where(x => roleIds.Contains(x.Id)).Select(x => x.Name).ToList();
+
+                //оптимизированный асинхронный метод
+                var roleIds = await Context.UserRoles
+                                           .Where(x => x.UserId == user.Id)
+                                           .Select(x => x.RoleId)
+                                           .ToListAsync(); //оптимизированный асинхронный метод
+
+                //оптимизированный асинхронный метод
+                var currentUserRoles = await Context.Roles
+                                                    .Where(x => roleIds
+                                                    .Contains(x.Id)).Select(x => x.Name)
+                                                    .ToListAsync(); // оптимизированный асинхронный метод
+
+                userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+            }
+
+            string adminRole = "admin";
+
+            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+
+            StudentGradeViewModel model = new StudentGradeViewModel
+            {
+                StatementNumber = studMajorAsync.StatementNumber,
+                StudyYear = studMajorAsync.StudyYear,
+                AttestationType = studMajorAsync.AttestationTypeRus,
+                Credit = studMajorAsync.Credits,
+                AcademicDepartment = studAcadDepAsync.NameRus.ToString(),
+                BRStudents = joinedBRStudentsList,
+                UsersFromMajorList = usersFromMajorListAsync,
+                Chairman = chairm,
+                Secretary = chairm
+
+            };
+
+            return View(model);
+        }
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentKazStatementAsync(int id)
+        {
+
+            //  рабочий асинхронный код для вытаскивания шифра специальности
+
+            var studMajorAsync = await Context.BMajor.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var studAcadDepAsync = await Context.AcademicDepartment.Where(x => x.Id == studMajorAsync.Id).FirstOrDefaultAsync();
+
+            // код для вытаскивания всех студентов определенной специальности
+            var studGroupsByMajAsyncList = await Context.BRStudentGroup
+                                            .Where(x => x.BMajorId == studMajorAsync.Id)
+                                            .ToListAsync();
+
+            List<BRStudent> joinedBRStudentsList = new List<BRStudent>();
+
+            foreach (var group in studGroupsByMajAsyncList)
+            {
+                var listOfStudents = await Context.BRStudent
+                                                  .Where(x => x.BRStudentGroupId == group.Id)
+                                                  .ToListAsync();
+                joinedBRStudentsList.AddRange(listOfStudents);
+            }
+
+            //конец код для вытаскивания всех студентов определенной специальности
+
+            var usersFromMajorListAsync = await Context.Users
+                                                       .Where(x => x.BMajorId == studMajorAsync.Id)
+                                                       .ToListAsync(); // все пользователи определенной специальности
 
             //////////// вывод ролей пользователя
             var users = await Context.Users.ToListAsync(); // берем всех имеющихся пользователей
@@ -1273,8 +1349,6 @@ namespace Phd.Controllers
 
 
 
-
-
         public async Task<IActionResult> Success()
         {
             return View();
@@ -1284,6 +1358,245 @@ namespace Phd.Controllers
         {
             return View();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public async Task<string> ReturnGradeLetterAsync(double grade)
+        {
+            string letter = "No grade";
+
+            if ((grade <= 100) && (grade >= 95))
+            {
+                return letter = "A";
+            }
+            if ((grade <= 94) && (grade >= 90))
+            {
+                return letter = "A-";
+            }
+            if ((grade <= 89) && (grade >= 85))
+            {
+                return letter = "B+";
+            }
+            if ((grade <= 84) && (grade >= 80))
+            {
+                return letter = "B";
+            }
+            if ((grade <= 79) && (grade >= 75))
+            {
+                return letter = "B-";
+            }
+            if ((grade <= 74) && (grade >= 70))
+            {
+                return letter = "C+";
+            }
+            if ((grade <= 69) && (grade >= 65))
+            {
+                return letter = "C";
+            }
+            if ((grade <= 64) && (grade >= 60))
+            {
+                return letter = "C-";
+            }
+            if ((grade <= 59) && (grade >= 55))
+            {
+                return letter = "D+";
+            }
+            if ((grade <= 54) && (grade >= 50))
+            {
+                return letter = "D-";
+            }
+            if ((grade <= 49) && (grade >= 25))
+            {
+                return letter = "FX";
+            }
+            if ((grade <= 24) && (grade >= 0))
+            {
+                return letter = "F";
+            }
+
+            return letter;
+        }
+
+
+
+
+
+
+        public async Task<double> ReturnGpaAsync(double grade)
+        {
+            double gpa = 0;
+
+            if ((grade <= 100) && (grade >= 95))
+            {
+                return gpa = 4.0;
+            }
+            if ((grade <= 94) && (grade >= 90))
+            {
+                return gpa = 3.67;
+            }
+            if ((grade <= 89) && (grade >= 85))
+            {
+                return gpa = 3.33;
+            }
+            if ((grade <= 84) && (grade >= 80))
+            {
+                return gpa = 3.0;
+            }
+            if ((grade <= 79) && (grade >= 75))
+            {
+                return gpa = 2.67;
+            }
+            if ((grade <= 74) && (grade >= 70))
+            {
+                return gpa = 2.33;
+            }
+            if ((grade <= 69) && (grade >= 65))
+            {
+                return gpa = 2.0;
+            }
+            if ((grade <= 64) && (grade >= 60))
+            {
+                return gpa = 1.67;
+            }
+            if ((grade <= 59) && (grade >= 55))
+            {
+                return gpa = 1.33;
+            }
+            if ((grade <= 54) && (grade >= 50))
+            {
+                return gpa = 1.0;
+            }
+            if ((grade <= 49) && (grade >= 25))
+            {
+                return gpa = 0.5;
+            }
+            if ((grade <= 24) && (grade >= 0))
+            {
+                return gpa = 0;
+            }
+
+            return gpa;
+        }
+
+
+
+
+        public async Task<string> ReturnGradeTraditionalRusAsync(double grade)
+        {
+            string letter = "No grade";
+
+            if ((grade <= 100) && (grade >= 90))
+            {
+                return letter = "Отлично";
+            }
+
+            if ((grade <= 89) && (grade >= 70))
+            {
+                return letter = "Хорошо";
+            }
+
+            if ((grade <= 69) && (grade >= 50))
+            {
+                return letter = "Удовлетворительно";
+            }
+
+            if ((grade <= 49) && (grade >= 0))
+            {
+                return letter = "Неудовлетворительно";
+            }
+
+            return letter;
+        }
+
+
+
+        public async Task<string> ReturnGradeTraditionalKazAsync(double grade)
+        {
+            string letter = "No grade";
+
+            if ((grade <= 100) && (grade >= 90))
+            {
+                return letter = "Өте жақсы";
+            }
+
+            if ((grade <= 89) && (grade >= 70))
+            {
+                return letter = "Жақсы";
+            }
+
+            if ((grade <= 69) && (grade >= 50))
+            {
+                return letter = "Қанағаттанарлық";
+            }
+
+            if ((grade <= 49) && (grade >= 0))
+            {
+                return letter = "Қанағаттанарлықсыз";
+            }
+
+            return letter;
+        }
+
+
+
+
+
+        public async Task<string> ReturnGradeTraditionalEngAsync(double grade)
+        {
+            string letter = "No grade";
+
+            if ((grade <= 100) && (grade >= 90))
+            {
+                return letter = "Excellent";
+            }
+
+            if ((grade <= 89) && (grade >= 70))
+            {
+                return letter = "Good";
+            }
+
+            if ((grade <= 69) && (grade >= 50))
+            {
+                return letter = "Satisfactory";
+            }
+
+            if ((grade <= 49) && (grade >= 0))
+            {
+                return letter = "Unsatisfactory";
+            }
+
+            return letter;
+        }
+
 
 
 
