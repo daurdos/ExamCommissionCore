@@ -68,6 +68,7 @@ namespace Phd.Controllers
         public IActionResult Create()
         {
             ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment.Where(x=>x.Id!=1), "Id", "NameRus");
+            ViewData["DictionaryStudyYear"] = new SelectList(Context.DictionaryStudyYear, "Id", "Value");
             return View();
         }
 
@@ -76,7 +77,7 @@ namespace Phd.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Cypher,NameRus,NameKaz,NameEng,AcademicDepartmentId")] BMajor bMajor)
+        public async Task<IActionResult> Create([Bind("Id,Cypher,NameRus,NameKaz,NameEng,AcademicDepartmentId,StatementNumber,AttestationTypeRus,AttestationTypeKaz,StudyYear,Credits")] BMajor bMajor)
         {
             if (ModelState.IsValid)
             {
@@ -85,6 +86,7 @@ namespace Phd.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
+            ViewData["DictionaryStudyYear"] = new SelectList(Context.DictionaryStudyYear, "Id", "Value");
             return View(bMajor);
         }
 
@@ -102,6 +104,7 @@ namespace Phd.Controllers
                 return NotFound();
             }
             ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment.Where(x=>x.Id!=1), "Id", "NameRus", bMajor.AcademicDepartmentId);
+            ViewData["DictionaryStudyYear"] = new SelectList(Context.DictionaryStudyYear, "Id", "Value");
             return View(bMajor);
         }
 
@@ -110,7 +113,7 @@ namespace Phd.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Cypher,NameRus,NameKaz,NameEng,AcademicDepartmentId")] BMajor bMajor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Cypher,NameRus,NameKaz,NameEng,AcademicDepartmentId,StatementNumber,AttestationTypeRus,AttestationTypeKaz,StudyYear,Credits")] BMajor bMajor)
         {
             if (id != bMajor.Id)
             {
@@ -138,6 +141,7 @@ namespace Phd.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AcademicDepartmentId"] = new SelectList(Context.AcademicDepartment, "Id", "NameRus", bMajor.AcademicDepartmentId);
+            ViewData["DictionaryStudyYear"] = new SelectList(Context.DictionaryStudyYear, "Id", "Value");
             return View(bMajor);
         }
 
@@ -750,47 +754,110 @@ namespace Phd.Controllers
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
             }
 
-            string adminRole = "admin";
+            //string adminRole = "admin";
+            //var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
 
-            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+
+            //if(usersFromGradesList.Any(x=>x.Id != null))
+            //{
+            //    StudentGradeViewModel model = new StudentGradeViewModel
+            //    {
+            //        StudentLName = student.Lname,
+            //        StudentFName = student.Fname,
+            //        StudentMName = student.Mname,
+            //        StudentThesisName = student.ThesisTopicRus,
+            //        AverageGrade = student.AvegrageGrade,
+            //        //Users = users,
+            //        Grades = grades,
+            //        UserWithRoles = userWithRolesList,
+            //        MajorCypher = studentMajorAsync.Cypher.ToString(),
+            //        MajorName = studentMajorAsync.NameRus.ToString(),
+            //        Chairman = chairm.ToString(),
+            //        Secretary = chairm.ToString(),
+            //        SupervisorLName = student.SupervisorLname,
+            //        SupervisorFName = student.SupervisorFname,
+            //        SupervisorMName = student.SupervisorMname,
+            //        ReviewerLName = student.ReviewerLname,
+            //        ReviewerFName = student.ReviewerFname,
+            //        ReviewerMName = student.ReviewerMname,
+            //        ThesPagesNumber = student.ThesisPagesNumber,
+            //        DrawTablesNumber = student.DrawingsTablesNumber,
+            //        GeneralCharacteristic = student.AnswerCharacteristic,
+            //        KnowledgeLevel = student.LevelOfPreparation,
+            //        GradeLetter = student.LetterGrade,
+            //        ReviewerGrade = student.ReviewerGrade,
+            //        ProtocolNumber = student.ProtocolNumber
+            //    };
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return RedirectToAction(nameof(NotSuccess));
+            //}  
 
 
-            if(usersFromGradesList.Any(x=>x.Id != null))
+
+            string chairmanRole = "ПредседательБакалавриатРус";
+            string secretaryRole = "СекретарьБакалавриатРус";
+
+            var chairmanUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == chairmanRole)).Select(x => x.UserName).FirstOrDefault();
+            var secretaryUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == secretaryRole)).Select(x => x.UserName).FirstOrDefault();
+            var chairman = users.Where(x => x.UserName == chairmanUserName).FirstOrDefault();
+            if (chairman != null)
             {
-                StudentGradeViewModel model = new StudentGradeViewModel
+                var secretary = users.Where(x => x.UserName == secretaryUserName).FirstOrDefault();
+                if (secretary != null)
                 {
-                    StudentLName = student.Lname,
-                    StudentFName = student.Fname,
-                    StudentMName = student.Mname,
-                    StudentThesisName = student.ThesisTopicRus,
-                    AverageGrade = student.AvegrageGrade,
-                    //Users = users,
-                    Grades = grades,
-                    UserWithRoles = userWithRolesList,
-                    MajorCypher = studentMajorAsync.Cypher.ToString(),
-                    MajorName = studentMajorAsync.NameRus.ToString(),
-                    Chairman = chairm.ToString(),
-                    Secretary = chairm.ToString(),
-                    SupervisorLName = student.SupervisorLname,
-                    SupervisorFName = student.SupervisorFname,
-                    SupervisorMName = student.SupervisorMname,
-                    ReviewerLName = student.ReviewerLname,
-                    ReviewerFName = student.ReviewerFname,
-                    ReviewerMName = student.ReviewerMname,
-                    ThesPagesNumber = student.ThesisPagesNumber,
-                    DrawTablesNumber = student.DrawingsTablesNumber,
-                    GeneralCharacteristic = student.AnswerCharacteristic,
-                    KnowledgeLevel = student.LevelOfPreparation,
-                    GradeLetter = student.LetterGrade,
-                    ReviewerGrade = student.ReviewerGrade,
-                    ProtocolNumber = student.ProtocolNumber
-                };
-                return View(model);
+                    string chairmanString = chairman.LastName.ToString() + " " + chairman.FirstName.ToString() + " " + chairman.MiddleName.ToString();
+                    string secretaryString = secretary.LastName.ToString() + " " + secretary.FirstName.ToString() + " " + secretary.MiddleName.ToString();
+                    if (usersFromGradesList.Any(x => x.Id != null))
+                    {
+                        StudentGradeViewModel model = new StudentGradeViewModel
+                        {
+                            StudentLName = student.Lname,
+                            StudentFName = student.Fname,
+                            StudentMName = student.Mname,
+                            StudentThesisName = student.ThesisTopicRus,
+                            AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                            Users = users,
+                            Grades = grades,
+                            UserWithRoles = userWithRolesList,
+                            MajorCypher = studentMajorAsync.Cypher.ToString(),
+                            MajorName = studentMajorAsync.NameRus.ToString(),
+                            Chairman = chairmanString,
+                            Secretary = secretaryString,
+                            SupervisorLName = student.SupervisorLname,
+                            SupervisorFName = student.SupervisorFname,
+                            SupervisorMName = student.SupervisorMname,
+                            ReviewerLName = student.ReviewerLname,
+                            ReviewerFName = student.ReviewerFname,
+                            ReviewerMName = student.ReviewerMname,
+                            ThesPagesNumber = student.ThesisPagesNumber,
+                            DrawTablesNumber = student.DrawingsTablesNumber,
+                            GeneralCharacteristic = student.AnswerCharacteristic,
+                            KnowledgeLevel = student.LevelOfPreparation,
+                            GradeLetter = student.LetterGrade,
+                            ReviewerGrade = student.ReviewerGrade,
+                            ProtocolNumber = student.ProtocolNumber
+                        };
+
+                        return View(model);
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(NotSuccess));
+                    }
+                }
+                else
+                {
+                    return RedirectToAction(nameof(NotSuccess));
+                }
             }
             else
             {
                 return RedirectToAction(nameof(NotSuccess));
-            }  
+            }
+
         }
 
 
@@ -893,49 +960,75 @@ namespace Phd.Controllers
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
             }
 
-            string adminRole = "admin";
+            //string adminRole = "admin";
+            //var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
 
-            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+            string chairmanRole = "ПредседательБакалавриатКаз";
+            string secretaryRole = "СекретарьБакалавриатКаз";
 
-
-
-            if (usersFromGradesList.Any(x => x.Id != null))
+            var chairmanUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == chairmanRole)).Select(x => x.UserName).FirstOrDefault();
+            var secretaryUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == secretaryRole)).Select(x => x.UserName).FirstOrDefault();
+            var chairman = users.Where(x => x.UserName == chairmanUserName).FirstOrDefault();
+            if(chairman != null)
             {
-                StudentGradeViewModel model = new StudentGradeViewModel
+                var secretary = users.Where(x => x.UserName == secretaryUserName).FirstOrDefault();
+                if(secretary != null)
                 {
-                    StudentLName = student.Lname,
-                    StudentFName = student.Fname,
-                    StudentMName = student.Mname,
-                    StudentThesisName = student.ThesisTopicKaz,
-                    AverageGrade = student.BRStudentGrade.Average(x => x.Value),
-                    Users = users,
-                    Grades = grades,
-                    UserWithRoles = userWithRolesList,
-                    MajorCypher = studentMajorAsync.Cypher.ToString(),
-                    MajorName = studentMajorAsync.NameRus.ToString(),
-                    Chairman = chairm.ToString(),
-                    Secretary = chairm.ToString(),
-                    SupervisorLName = student.SupervisorLname,
-                    SupervisorFName = student.SupervisorFname,
-                    SupervisorMName = student.SupervisorMname,
-                    ReviewerLName = student.ReviewerLname,
-                    ReviewerFName = student.ReviewerFname,
-                    ReviewerMName = student.ReviewerMname,
-                    ThesPagesNumber = student.ThesisPagesNumber,
-                    DrawTablesNumber = student.DrawingsTablesNumber,
-                    GeneralCharacteristic = student.AnswerCharacteristic,
-                    KnowledgeLevel = student.LevelOfPreparation,
-                    GradeLetter = student.LetterGrade,
-                    ReviewerGrade = student.ReviewerGrade,
-                    ProtocolNumber = student.ProtocolNumber
-                };
+                    string chairmanString = chairman.LastName.ToString() + " " + chairman.FirstName.ToString() + " " + chairman.MiddleName.ToString();
+                    string secretaryString = secretary.LastName.ToString() + " " + secretary.FirstName.ToString() + " " + secretary.MiddleName.ToString();
+                    if (usersFromGradesList.Any(x => x.Id != null))
+                    {
+                        StudentGradeViewModel model = new StudentGradeViewModel
+                        {
+                            StudentLName = student.Lname,
+                            StudentFName = student.Fname,
+                            StudentMName = student.Mname,
+                            StudentThesisName = student.ThesisTopicKaz,
+                            AverageGrade = student.BRStudentGrade.Average(x => x.Value),
+                            Users = users,
+                            Grades = grades,
+                            UserWithRoles = userWithRolesList,
+                            MajorCypher = studentMajorAsync.Cypher.ToString(),
+                            MajorName = studentMajorAsync.NameKaz.ToString(),
+                            Chairman = chairmanString,
+                            Secretary = secretaryString,
+                            SupervisorLName = student.SupervisorLname,
+                            SupervisorFName = student.SupervisorFname,
+                            SupervisorMName = student.SupervisorMname,
+                            ReviewerLName = student.ReviewerLname,
+                            ReviewerFName = student.ReviewerFname,
+                            ReviewerMName = student.ReviewerMname,
+                            ThesPagesNumber = student.ThesisPagesNumber,
+                            DrawTablesNumber = student.DrawingsTablesNumber,
+                            GeneralCharacteristic = student.AnswerCharacteristic,
+                            KnowledgeLevel = student.LevelOfPreparation,
+                            GradeLetter = student.LetterGrade,
+                            ReviewerGrade = student.ReviewerGrade,
+                            ProtocolNumber = student.ProtocolNumber
+                        };
 
-                return View(model);
+                        return View(model);
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(NotSuccess));
+                    }
+                }
+                else
+                {
+                    return RedirectToAction(nameof(NotSuccess));
+                }
             }
             else
             {
                 return RedirectToAction(nameof(NotSuccess));
             }
+           
+
+            
+
+
+           
                 
 
         }
@@ -1235,25 +1328,61 @@ namespace Phd.Controllers
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
             }
 
-            string adminRole = "admin";
+            //string adminRole = "admin";
 
-            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+            //var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
 
-            StudentGradeViewModel model = new StudentGradeViewModel
+            //string chairmanRole = "ПредседательБакалавриатКаз";
+            //string secretaryRole = "СекретарьБакалавриатКаз";
+
+            //string chairman = userWithRolesList.Where(x => x.Roles.Any(x => x == chairmanRole)).Select(x => x.UserName).FirstOrDefault();
+            //string secretary = userWithRolesList.Where(x => x.Roles.Any(x => x == secretaryRole)).Select(x => x.UserName).FirstOrDefault();
+
+
+            string chairmanRole = "ПредседательБакалавриатРус";
+            string secretaryRole = "СекретарьБакалавриатРус";
+
+            var chairmanUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == chairmanRole)).Select(x => x.UserName).FirstOrDefault();
+            var secretaryUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == secretaryRole)).Select(x => x.UserName).FirstOrDefault();
+            var chairman = users.Where(x => x.UserName == chairmanUserName).FirstOrDefault();
+            if(chairman != null)
             {
-                StatementNumber = studMajorAsync.StatementNumber,
-                StudyYear = studMajorAsync.StudyYear,
-                AttestationType = studMajorAsync.AttestationTypeRus,
-                Credit = studMajorAsync.Credits,
-                AcademicDepartment = studAcadDepAsync.NameRus.ToString(),
-                BRStudents = joinedBRStudentsList,
-                UsersFromMajorList = usersFromMajorListAsync,
-                Chairman = chairm,
-                Secretary = chairm
+                var secretary = users.Where(x => x.UserName == secretaryUserName).FirstOrDefault();
+                if(secretary != null)
+                {
+                    string chairmanString = chairman.LastName.ToString() + " " + chairman.FirstName.ToString() + " " + chairman.MiddleName.ToString();
+                    string secretaryString = secretary.LastName.ToString() + " " + secretary.FirstName.ToString() + " " + secretary.MiddleName.ToString();
 
-            };
+                    var members = usersFromMajorListAsync.SkipWhile(x => x.UserName == chairman.UserName).ToList();
+                    var memberss = members.TakeWhile(x => x.UserName != secretary.UserName).ToList();
 
-            return View(model);
+                    StudentGradeViewModel model = new StudentGradeViewModel
+                    {
+                        StatementNumber = studMajorAsync.StatementNumber,
+                        StudyYear = studMajorAsync.StudyYear,
+                        AttestationType = studMajorAsync.AttestationTypeRus,
+                        Credit = studMajorAsync.Credits,
+                        AcademicDepartment = studAcadDepAsync.NameRus.ToString(),
+                        BRStudents = joinedBRStudentsList,
+                        UsersFromMajorList = memberss,
+                        Chairman = chairmanString,
+                        Secretary = secretaryString
+
+                    };
+
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(NotSuccess));
+                }
+                
+            }
+            else
+            {
+                return RedirectToAction(nameof(NotSuccess));
+            }
+           
         }
 
 
@@ -1315,27 +1444,58 @@ namespace Phd.Controllers
                                                     .ToListAsync(); // оптимизированный асинхронный метод
 
                 userWithRolesList.Add(new UserWithRoles(user.UserName, currentUserRoles.ToArray()));
+                
             }
 
-            string adminRole = "admin";
 
-            var chairm = userWithRolesList.Where(x => x.Roles.Any(x => x == adminRole)).Select(x => x.UserName).FirstOrDefault();
+            string chairmanRole = "ПредседательБакалавриатКаз";
+            string secretaryRole = "СекретарьБакалавриатКаз";
 
-            StudentGradeViewModel model = new StudentGradeViewModel
+            var chairmanUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == chairmanRole)).Select(x => x.UserName).FirstOrDefault();
+            var secretaryUserName = userWithRolesList.Where(x => x.Roles.Any(x => x == secretaryRole)).Select(x => x.UserName).FirstOrDefault();
+            var chairman = users.Where(x => x.UserName == chairmanUserName).FirstOrDefault();
+            if (chairman != null)
             {
-                StatementNumber = studMajorAsync.StatementNumber,
-                StudyYear = studMajorAsync.StudyYear,
-                AttestationType = studMajorAsync.AttestationTypeRus,
-                Credit = studMajorAsync.Credits,
-                AcademicDepartment = studAcadDepAsync.NameRus.ToString(),
-                BRStudents = joinedBRStudentsList,
-                UsersFromMajorList = usersFromMajorListAsync,
-                Chairman = chairm,
-                Secretary = chairm
+                var secretary = users.Where(x => x.UserName == secretaryUserName).FirstOrDefault();
+                if(secretary != null)
+                {
+                    string chairmanString = chairman.LastName.ToString() + " " + chairman.FirstName.ToString() + " " + chairman.MiddleName.ToString();
+                    string secretaryString = secretary.LastName.ToString() + " " + secretary.FirstName.ToString() + " " + secretary.MiddleName.ToString();
 
-            };
+                    var members = usersFromMajorListAsync.SkipWhile(x => x.UserName == chairman.UserName).ToList();
+                    var memberss = members.TakeWhile(x => x.UserName != secretary.UserName).ToList();
 
-            return View(model);
+
+                    StudentGradeViewModel model = new StudentGradeViewModel
+                    {
+                        StatementNumber = studMajorAsync.StatementNumber,
+                        StudyYear = studMajorAsync.StudyYear,
+                        AttestationType = studMajorAsync.AttestationTypeRus,
+                        Credit = studMajorAsync.Credits,
+                        AcademicDepartment = studAcadDepAsync.NameRus.ToString(),
+                        BRStudents = joinedBRStudentsList,
+                        UsersFromMajorList = usersFromMajorListAsync,
+                        MembersList = memberss,
+                        Chairman = chairmanString,
+                        Secretary = secretaryString
+
+                    };
+
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(NotSuccess));
+                }
+               
+            }
+            else
+            {
+                return RedirectToAction(nameof(NotSuccess));
+            }
+
+
+
         }
 
 

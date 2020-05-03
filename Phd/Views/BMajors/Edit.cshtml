@@ -1,12 +1,12 @@
 ﻿@model Phd.Models.BMajor
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Править";
 }
 
-<h2>Edit</h2>
+    <h2>Править ГАК</h2>
 
-<h4>BMajor</h4>
+<h4></h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,19 +33,53 @@
                 <input asp-for="NameEng" class="form-control" />
                 <span asp-validation-for="NameEng" class="text-danger"></span>
             </div>
+
+
+            <div class="form-group">
+                <label asp-for="StatementNumber" class="control-label"></label>
+                <input asp-for="StatementNumber" class="form-control" />
+                <span asp-validation-for="StatementNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Тип аттестации русс.яз.</label>
+                <input asp-for="AttestationTypeRus" class="form-control" />
+                <span asp-validation-for="AttestationTypeRus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Тип аттестации каз.яз.</label>
+                    <input asp-for="AttestationTypeKaz" class="form-control" />
+                    <span asp-validation-for="AttestationTypeKaz" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudyYear" class="control-label"></label>
+                <select asp-for="StudyYear" class="form-control" asp-items="ViewBag.DictionaryStudyYear"></select>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Credits" class="control-label"></label>
+                <input asp-for="Credits" class="form-control" />
+                <span asp-validation-for="Credits" class="text-danger"></span>
+            </div>
+
+
+
             <div class="form-group">
                 <label asp-for="AcademicDepartmentId" class="control-label"></label>
                 <select asp-for="AcademicDepartmentId" class="form-control" asp-items="ViewBag.AcademicDepartmentId"></select>
                 <span asp-validation-for="AcademicDepartmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 
