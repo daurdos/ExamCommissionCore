@@ -10,9 +10,11 @@ namespace Phd.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Название факультета")]
+        [Display(Name = "Название факультета на русс.яз.")]
         public string NameRus { get; set; }
+        [Display(Name = "Название факультета на каз.яз.")]
         public string NameKaz { get; set; }
+        [Display(Name = "Название факультета на англ.яз.")]
         public string NameEng { get; set; }
         public ICollection<AcademicDepartment> AcademicDepartment { get; set; }
 

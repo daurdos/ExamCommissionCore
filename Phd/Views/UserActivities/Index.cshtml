@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Phd.Models.UserActivity>
+
+@{
+    ViewData["Title"] = "Логи пользователей";
+}
+
+<h2>Логи пользователей</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label> Имя пользователя</label>
+            </th>
+            <th>
+                <label> Отметка времени</label>
+            </th>
+            <th>
+                <label> Действие</label>
+            </th>
+            <th>
+                <label> Подробно </label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

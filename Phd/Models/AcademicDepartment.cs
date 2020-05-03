@@ -9,16 +9,24 @@ namespace Phd.Models
     public class AcademicDepartment
     {
         public int Id { get; set; }
-        
-        [Display(Name = "Название")]
+
+        [Required]
+        [Display(Name = "Название русс. яз.")]
         public string NameRus { get; set; }
+
+        [Required]
+        [Display(Name = "Название каз. яз.")]
         public string NameKaz { get; set; }
+
+        [Required]
+        [Display(Name = "Название каз. яз.")]
         public string NameEng { get; set; }
 
-
+        
         [Display(Name = "Факультет")]
         public int FacultyId { get; set; }
 
+        
         [Display(Name = "Факультет")]
         public Faculty Faculty { get; set; }
         public ICollection<BMajor> BMajor { get; set; }

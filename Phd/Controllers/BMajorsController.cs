@@ -1184,7 +1184,7 @@ namespace Phd.Controllers
             //  рабочий асинхронный код для вытаскивания шифра специальности
 
             var studMajorAsync = await Context.BMajor.Where(x => x.Id == id).FirstOrDefaultAsync();
-            var studAcadDepAsync = await Context.AcademicDepartment.Where(x => x.Id == studMajorAsync.Id).FirstOrDefaultAsync();
+            var studAcadDepAsync = await Context.AcademicDepartment.Where(x => x.Id == studMajorAsync.AcademicDepartmentId).FirstOrDefaultAsync();
 
             // код для вытаскивания всех студентов определенной специальности
             var studGroupsByMajAsyncList = await Context.BRStudentGroup
@@ -1266,7 +1266,7 @@ namespace Phd.Controllers
             //  рабочий асинхронный код для вытаскивания шифра специальности
 
             var studMajorAsync = await Context.BMajor.Where(x => x.Id == id).FirstOrDefaultAsync();
-            var studAcadDepAsync = await Context.AcademicDepartment.Where(x => x.Id == studMajorAsync.Id).FirstOrDefaultAsync();
+            var studAcadDepAsync = await Context.AcademicDepartment.Where(x => x.Id == studMajorAsync.AcademicDepartmentId).FirstOrDefaultAsync();
 
             // код для вытаскивания всех студентов определенной специальности
             var studGroupsByMajAsyncList = await Context.BRStudentGroup

@@ -5,29 +5,34 @@
 }
 
 <h2>Просмотр студентов, обучавшихся на англ. яз.</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Iin)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (User.Identity.IsAuthenticated)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Iin)
-                </td>
-                <td>
-
-                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeEngAsync" asp-route-studentId="@item.Id">Результаты</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Iin)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Iin)
+                    </td>
+                    <td>
+
+                        <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Оценить</a>
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee() || User.IsSecretaryBacEng() || User.IsSecretaryMagEng())
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeEngAsync" asp-route-studentId="@item.Id">Результаты</a>
+                        }
+                        </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

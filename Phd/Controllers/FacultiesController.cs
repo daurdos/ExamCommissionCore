@@ -21,7 +21,7 @@ namespace Phd.Controllers
         // GET: Faculties
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Faculty.ToListAsync());
+            return View(await _context.Faculty.Where(x => x.Id != 1).ToListAsync());
         }
 
         // GET: Faculties/Details/5

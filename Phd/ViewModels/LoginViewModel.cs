@@ -4,7 +4,7 @@ namespace Phd.ViewModels
 {
     public class LoginViewModel
     {
-
+        [Display(Name = "Уникальное имя")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Введите пароль")]

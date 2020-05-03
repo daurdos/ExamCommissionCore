@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Phd.Models.AcademicDepartment>
+
+@{
+    ViewData["Title"] = "Справочники";
+}
+
+<h2>Управление справочниками</h2>
+
+<table class="table">
+    <thead>
+        <th></th>
+        <tr>
+            <th>
+                <label> Справочник академических степеней </label>
+            </th>
+            <th>
+                <a asp-controller="DictionaryAcademicDegrees" asp-action="Index">Управлять</a>
+            </th>
+
+        </tr>
+        <tr>
+            <th>
+                <label> Справочник доступных статусов </label>
+            </th>
+            <th>
+                <a asp-controller="DictionaryStatusAvailabilities" asp-action="Index">Управлять</a>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <label> Справочник заключений </label>
+            </th>
+            <th>
+                <a asp-controller="DictionaryStatusConclusions" asp-action="Index">Управлять</a>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <label> Учебные годы </label>
+            </th>
+            <th>
+                <a asp-controller="DictionaryStudyYears" asp-action="Index">Управлять</a>
+            </th>
+        </tr>
+
+
+    </thead>
+   
+</table>

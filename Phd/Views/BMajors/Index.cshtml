@@ -8,7 +8,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    @if (User.IsInRole("Сотрудник") || User.IsAdmin())
+    @if (User.IsEmployee() || User.IsAdmin())
     {
         <p>
             <a class="btn btn-success" asp-action="Create">Создать ГАК &nbsp &nbsp &nbsp &nbsp</a>
@@ -44,11 +44,11 @@
                     <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Cypher)</a>
                 </td>
                 <td>
-                    @if (User.IsInRole("Сотрудник") || User.IsAdmin())
+                    @if (User.IsEmployee() || User.IsAdmin())
                     {
                         <a asp-action="Edit" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.NameRus)</a>
                     }
-                    @if (User.IsInRole("ПредседательБакалавриат") || User.IsInRole("СекретарьБакалавриат") || User.IsInRole("ПреподавательБакалавриат ") || User.IsInRole("ТөрағаБакалавриат") || User.IsInRole("ХатшыБакалавриат") || User.IsInRole("ОқытушыБакалавриат") || User.IsInRole("ChairmanBachelors") || User.IsInRole("SecretaryBachelors") || User.IsInRole("InstructorBachelors") || User.IsInRole("ПредседательМагистратура") || User.IsInRole("СекретарьМагистратура") || User.IsInRole("ПреподавательМагистратура") || User.IsInRole("ТөрағаМагистратура") || User.IsInRole("ХатшыМагистратура") || User.IsInRole("ОқытушыМагистратура") || User.IsInRole("ChairmanMasters") || User.IsInRole("SecretaryMasters") || User.IsInRole("InstructorMasters") || User.IsInRole("Администратор"))
+                    @if (User.IsAdministrator() || User.IsChairmanBacRus() || User.IsChairmanBacKaz() || User.IsChairmanBacEng() || User.IsChairmanMagRus() || User.IsChairmanMagKaz() || User.IsChairmanMagEng() || User.IsSecretaryBacRus() || User.IsSecretaryBacKaz() || User.IsSecretaryBacEng() || User.IsSecretaryMagRus() || User.IsSecretaryMagKaz() || User.IsSecretaryMagEng() || User.IsInstructorBacRus() || User.IsInstructorBacKaz() || User.IsInstructorBacEng() || User.IsInstructorMagRus() || User.IsInstructorMagKaz() || User.IsInstructorMagEng())
                     {
                         <small>@Html.DisplayFor(modelItem => item.NameRus)</small>
                     }
@@ -57,12 +57,12 @@
                     <small>@Html.DisplayFor(modelItem => item.AcademicDepartment.NameRus) </small>
                 </td>
                 <td>
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("СекретарьБакалавриат") || User.IsInRole("СекретарьМагистратура"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsSecretaryBacRus() || User.IsSecretaryMagRus())
                     {
                         <a class="btn btn-success btn-sm" asp-action="CreateStudentGroupRusAsync" asp-route-id="@item.Id">Создать поток рус</a>
 
                     }
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("ПредседательБакалавриат") || User.IsInRole("СекретарьБакалавриат") || User.IsInRole("ПреподавательБакалавриат") || User.IsInRole("ПредседательМагистратура") || User.IsInRole("СекретарьМагистратура") || User.IsInRole("ПреподавательМагистратура") || User.IsInRole("admin") || User.IsInRole("Администратор"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsAdministrator() || User.IsChairmanBacRus() || User.IsChairmanMagRus() || User.IsSecretaryBacRus() || User.IsSecretaryMagRus() || User.IsInstructorBacRus() || User.IsInstructorMagRus())
                     {
                         <a class="btn btn-primary btn-sm" asp-action="GetStudentGroupRusAsync" asp-route-id="@item.Id"> &nbsp &nbsp &nbsp  Потоки рус &nbsp &nbsp &nbsp</a>
                     }
@@ -72,24 +72,24 @@
                 </td>
 
                 <td>
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("ХатшыБакалавриат") || User.IsInRole("ХатшыМагистратура"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz())
                     {
                         <a class="btn btn-success btn-sm" asp-action="CreateStudentGroupKazAsync" asp-route-id="@item.Id">Создать поток каз</a>
 
                     }
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("ТөрағаБакалавриат") || User.IsInRole("ХатшыБакалавриат") || User.IsInRole("ОқытушыБакалавриат") || User.IsInRole("ТөрағаМагистратура") || User.IsInRole("ХатшыМагистратура") || User.IsInRole("ОқытушыМагистратура") || User.IsInRole("admin") || User.IsInRole("Администратор"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsAdministrator() || User.IsChairmanBacKaz() || User.IsChairmanMagKaz() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz() || User.IsInstructorBacKaz() || User.IsInstructorMagKaz())
                     {
                         <a class="btn btn-primary btn-sm" asp-action="GetStudentGroupKazAsync" asp-route-id="@item.Id">&nbsp &nbsp &nbsp Потоки каз &nbsp &nbsp &nbsp</a>
                     }
 
                 </td>
                 <td>
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("SecretaryBachelors") || User.IsInRole("SecretaryMasters"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsSecretaryBacEng() || User.IsSecretaryMagEng())
                     {
                         <a class="btn btn-success btn-sm" asp-action="CreateStudentGroupEngAsync" asp-route-id="@item.Id">Создать поток анг</a>
 
                     }
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("ChairmanBachelors") || User.IsInRole("SecretaryBachelors") || User.IsInRole("InstructorBachelors") || User.IsInRole("ChairmanMasters") || User.IsInRole("SecretaryMasters") || User.IsInRole("InstructorMaster") || User.IsInRole("admin") || User.IsInRole("Администратор"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsAdministrator() || User.IsChairmanBacEng() || User.IsChairmanMagEng() || User.IsSecretaryBacEng() || User.IsSecretaryMagEng() || User.IsInstructorBacEng() || User.IsInstructorMagEng())
                     {
                         <a class="btn btn-primary btn-sm" asp-action="GetStudentGroupEngAsync" asp-route-id="@item.Id">&nbsp &nbsp &nbsp Потоки анг &nbsp &nbsp &nbsp</a>
                     }
@@ -97,11 +97,11 @@
                 </td>
                 <td>
                     <!-- <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> -->
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("СекретарьБакалавриат") || User.IsInRole("Администратор"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsAdministrator() ||User.IsSecretaryBacRus() || User.IsSecretaryMagRus())
                     {
                         <a class="btn btn-warning btn-sm" asp-action="GetStudentRusStatementAsync" asp-route-id="@item.Id">Ведомость рус</a>
                     }
-                    @if (User.IsInRole("Сотрудник") || User.IsInRole("ХатшыБакалавриат") || User.IsInRole("Администратор"))
+                    @if (User.IsAdmin() || User.IsEmployee() || User.IsAdministrator() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz())
                     {
                         <a class="btn btn-warning btn-sm" asp-action="GetStudentKazStatementAsync" asp-route-id="@item.Id">Ведомость каз</a>
                     }

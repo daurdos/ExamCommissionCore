@@ -21,7 +21,7 @@ namespace Phd.Controllers
         // GET: UserActivities
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserActivitiy.ToListAsync());
+            return View(await _context.UserActivitiy.OrderByDescending(x=>x.TimeStamp).ToListAsync());
         }
 
         // GET: UserActivities/Details/5

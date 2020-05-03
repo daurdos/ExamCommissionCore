@@ -6,35 +6,48 @@
 
 <h2>Просмотр потоков каз. яз</h2>
 
-<table class="demotable">
-    <thead>
-        <tr>
-            <td>
-                <strong align="center"> №</strong>
-            </td>
-            <td>
-                <strong align="center"> @Html.DisplayNameFor(model => model.Name)</strong>
-            </td>
-            <td>
-                <strong align="center"> Действия</strong>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (User.Identity.IsAuthenticated)
+{
+    <table class="demotable">
+        <thead>
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <strong align="center"> №</strong>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentKazAsync" asp-route-id="@item.Id"> Создать студента</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentsKazAsync" asp-route-id="@item.Id">Студенты</a>
+                    <strong align="center"> @Html.DisplayNameFor(model => model.Name)</strong>
+                </td>
+                <td>
+                    <strong align="center"> Действия</strong>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @if (User.IsAdmin() || User.IsEmployee() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz())
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="CreateStudentKazAsync" asp-route-id="@item.Id"> Создать студента</a>
+                        }
+                        &nbsp;
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee() || User.IsChairmanBacKaz() || User.IsChairmanMagKaz() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz() || User.IsInstructorBacKaz() || User.IsInstructorMagKaz())
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="GetStudentsKazAsync" asp-route-id="@item.Id">Студенты</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
 
 
 

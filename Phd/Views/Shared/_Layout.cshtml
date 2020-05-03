@@ -34,46 +34,48 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Домой</a></li>
-                        @if (User.IsInRole(" User"))
+                        
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee() || User.IsChairmanBacRus() || User.IsChairmanBacKaz() || User.IsChairmanBacEng() || User.IsChairmanMagRus() || User.IsChairmanMagKaz() || User.IsChairmanMagEng() || User.IsSecretaryBacRus() || User.IsSecretaryBacKaz() || User.IsSecretaryBacEng() || User.IsSecretaryMagRus() || User.IsSecretaryMagKaz() || User.IsSecretaryMagEng() || User.IsInstructorBacRus() || User.IsInstructorBacKaz() || User.IsInstructorBacEng() || User.IsInstructorMagRus() || User.IsInstructorMagKaz() || User.IsInstructorMagEng())
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Домой</a></li>
+                            <li><a asp-area="" asp-controller="BMajors" asp-action="Index">ГАК</a></li>
+                        }
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee())
                         {
                             <li><a asp-area="" asp-controller="Roles" asp-action="Index">Управление доступом</a></li>
-                            <li><a asp-area="" asp-controller="BMajors" asp-action="Index">Специальности</a></li>
                         }
+                        @if (User.IsAdmin() || User.IsAdministrator())
+                        {
+                            <li><a asp-area="" asp-controller="Faculties" asp-action="Index"> Факультеты </a></li>
+                            <li><a asp-area="" asp-controller="AcademicDepartments" asp-action="Index"> Кафедры </a></li>
+                            <li><a asp-area="" asp-controller="UserActivities" asp-action="Index"> Логи </a></li>
+                            <li><a asp-area="" asp-controller="Dics" asp-action="Index"> Справочники </a></li>
+                        }
+
 
                         else if (User.IsAdmin())
                         {
-                            <li><a asp-area="" asp-controller="Users" asp-action="Index">Управление пользователями</a></li>
-                            <li><a asp-area="" asp-controller="Roles" asp-action="Index">Управление доступом</a></li>
-                            <li><a asp-area="" asp-controller="Faculties" asp-action="Index">Факультеты</a></li>
-                            <li><a asp-area="" asp-controller="AcademicDepartments" asp-action="Index">Кафедры</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="Index"> Управление пользователями </a></li>
+
                         }
 
-                        else if (User.IsInRole("User"))
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee() || User.IsChairmanBacRus() || User.IsChairmanBacKaz() || User.IsChairmanBacEng() || User.IsChairmanMagRus() || User.IsChairmanMagKaz() || User.IsChairmanMagEng() || User.IsSecretaryBacRus() || User.IsSecretaryBacKaz() || User.IsSecretaryBacEng() || User.IsSecretaryMagRus() || User.IsSecretaryMagKaz() || User.IsSecretaryMagEng() || User.IsInstructorBacRus() || User.IsInstructorBacKaz() || User.IsInstructorBacEng() || User.IsInstructorMagRus() || User.IsInstructorMagKaz() || User.IsInstructorMagEng())
                         {
-                            <li><a asp-area="" asp-controller="BRStudentGroups" asp-action="Index">Группы</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="About"> О системе </a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact"> Контакты </a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="LogOff" asp-method="post"> Выход </a></li>
                         }
 
-                        else if (User.IsInRole("User"))
-                        {
-                            <li><a asp-area="" asp-controller="BRExamCommissions" asp-action="Index">Комиссии</a></li>
-                        }
-
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">О системе</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="LogOff" asp-method="post">Выход</a></li>
                     }
 
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Домой</a></li>
-
                         <li><a asp-area="" asp-controller="Account" asp-action="Register">ДАВ</a></li>
                         <li><a asp-area="" asp-controller="AcademicDepartments" asp-action="GetAllAcademicDepartmentsAsync">ППС</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Login">Вход</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="About">О системе</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
-                        <li><a asp-area="" asp-controller="BMajors" asp-action="Index">Комиссии</a></li>
                     }
                 </ul>
             </div>
@@ -86,7 +88,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - Институт цифровизации v3.1</p>
+            <p>&copy; 2020 - Институт цифровизации v1.0</p>
         </footer>
     </div>
 

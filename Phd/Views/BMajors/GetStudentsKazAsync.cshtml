@@ -6,30 +6,35 @@
 
 <h2>Просмотр студентов, обучавшихся на каз. яз.</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Iin)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (User.Identity.IsAuthenticated)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Iin)
-                </td>
-                <td>
-
-                    <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Бага кою </a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeKazAsync" asp-route-studentId="@item.Id">Протокол</a>
-                    <a class="btn btn-sm btn-primary" asp-action="GetStudentKazSummarizedSheetAsync" asp-route-studentId="@item.Id">Жиынтық парақ</a>
-
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Iin)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Iin)
+                    </td>
+                    <td>
+
+                        <a class="btn btn-sm btn-primary" asp-action="CreateStudentGradeAsync" asp-route-studentId="@item.Id" asp-route-userId="@ViewBag.UserId"> Бага кою </a>
+                        @if (User.IsAdmin() || User.IsAdministrator() || User.IsEmployee() || User.IsSecretaryBacKaz() || User.IsSecretaryMagKaz())
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="GetStudentGradeKazAsync" asp-route-studentId="@item.Id">Протокол</a>
+                            <a class="btn btn-sm btn-primary" asp-action="GetStudentKazSummarizedSheetAsync" asp-route-studentId="@item.Id">Жиынтық парақ</a>
+                        }
+                        </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

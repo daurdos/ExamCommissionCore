@@ -101,5 +101,128 @@ namespace Phd.Controllers
             }
         }
 
+
+
+        // добавление методов расширения по всем ролям системы
+
+
+        public bool IsChairmanBacRus()
+        {
+            return HttpContext.User.IsChairmanBacRus(); 
+        }
+
+
+        public bool IsChairmanBacKaz()
+        {
+            return HttpContext.User.IsChairmanBacKaz();
+        }
+
+        public bool IsChairmanBacEng()
+        {
+            return HttpContext.User.IsChairmanBacEng();
+        }
+
+
+
+
+
+        public bool IsChairmanMagRus()
+        {
+            return HttpContext.User.IsChairmanMagRus();
+        }
+
+
+        public bool IsChairmanMagKaz()
+        {
+            return HttpContext.User.IsChairmanMagKaz();
+        }
+
+        public bool IsChairmanMagEng()
+        {
+            return HttpContext.User.IsChairmanMagEng();
+        }
+
+
+
+
+
+        public bool IsSecretaryBacRus()
+        {
+            return HttpContext.User.IsSecretaryBacRus();
+        }
+
+        public bool IsSecretaryBacKaz()
+        {
+            return HttpContext.User.IsSecretaryBacKaz();
+        }
+        public bool IsSecretaryBacEng()
+        {
+            return HttpContext.User.IsSecretaryBacEng();
+        }
+
+
+
+        public bool IsSecretaryMagRus()
+        {
+            return HttpContext.User.IsSecretaryMagRus();
+        }
+
+        public bool IsSecretaryMagKaz()
+        {
+            return HttpContext.User.IsSecretaryMagKaz();
+        }
+        public bool IsSecretaryMagEng()
+        {
+            return HttpContext.User.IsSecretaryMagEng();
+        }
+
+
+
+        public bool IsInstructorBacRus()
+        {
+            return HttpContext.User.IsInstructorBacRus();
+        }
+
+        public bool IsInstructorBacKaz()
+        {
+            return HttpContext.User.IsInstructorBacKaz();
+        }
+
+        public bool IsInstructorBacEng()
+        {
+            return HttpContext.User.IsInstructorBacEng();
+        }
+
+
+        public bool IsInstructorMagRus()
+        {
+            return HttpContext.User.IsInstructorMagRus();
+        }
+
+        public bool IsInstructorMagKaz()
+        {
+            return HttpContext.User.IsInstructorMagKaz();
+        }
+
+        public bool IsInstructorMagEng()
+        {
+            return HttpContext.User.IsInstructorMagEng();
+        }
+
+
+
+        public bool IsEmployee()
+        {
+            return HttpContext.User.IsEmployee();
+        }
+
+
+        public bool IsAdministrator()
+        {
+            return HttpContext.User.IsAdministrator();
+        }
+
+
+
     }
 }

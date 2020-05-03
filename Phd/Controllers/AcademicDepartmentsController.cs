@@ -23,7 +23,7 @@ namespace Phd.Controllers
         public async Task<IActionResult> Index()
         {
             
-            return View(await _context.AcademicDepartment.ToListAsync());
+            return View(await _context.AcademicDepartment.Where(x=>x.Id!=1).ToListAsync());
         }
 
         public async Task<IActionResult> GetAllAcademicDepartmentsAsync()

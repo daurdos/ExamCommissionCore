@@ -12,7 +12,10 @@ namespace Phd.Models
 
         [Display(Name = "Оценка (%)")]
         public int Value { get; set; }
+
+        [Display(Name = "Особое мнение")]
         public string Opinion { get; set; }  // добавил в соотвествии с презентацией
+        [Display(Name = "Заданные вопросы")]
         public string Question { get; set; } // добавил в соотвествии с презентацией
 
 

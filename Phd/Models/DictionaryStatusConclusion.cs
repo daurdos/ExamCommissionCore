@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,8 +9,11 @@ namespace Phd.Models
     public class DictionaryStatusConclusion
     {
         public int Id { get; set; }
+        [Display(Name = "Значение на русс.яз.")]
         public string ValueRus { get; set; }
+        [Display(Name = "Значение на каз.яз.")]
         public string ValueKaz { get; set; }
+        [Display(Name = "Значение на англ.яз.")]
         public string ValueEng { get; set; }
 
         // запасные поля
